@@ -363,10 +363,15 @@ To register  yourself as an English Unit Leader, please send the word register, 
 								download_mimetype = None
 								mimetypes = { 'application/vnd.google-apps.document': 'application/pdf',
 									'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
+								#read in whole thing as a dictionary
+								#or force formatting
 								with open('DEUL.csv', 'a', newline='') as csvfile:
-									fieldnames = ['area', 'sender_id']
-									writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-									writer.writerow({'area': area, 'sender_id': sender_id})
+									csvfile.write('''
+%s,%s''' % (area, sender_id))
+									csvfile.close()
+									#fieldnames = ['area', 'sender_id']
+									#writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+									#writer.writerow({'area': area, 'sender_id': sender_id})
 								
 								keysheet.SetContentFile('DEUL.csv')
 								
