@@ -20,6 +20,7 @@ from pydrive.drive import GoogleDrive
 
 csv.register_dialect('myDialect', delimiter=',', quoting=csv.QUOTE_NONE)
 oldrefslist = []
+newrefslist = []
 dont_run_first = 0
 read_in_sheet = {}
 
@@ -42,20 +43,29 @@ def send_message(recipient_id, message_text):
 def getref(referralnum):
 	#calls the list reflist which contains each of the referrals in dictionary form. Prints all the keys and dictionaries.
 	#Accepts a int arguement to find a referral.
-	return oldrefslist[referralnum]
+	return newrefslist[referralnum]
 def getarea(referralnum):
 	#calls the list reflist and accepts an int to find a referral than accesses the key value for that referrals location.	
-	return oldrefslist[referralnum]['Select-5']
+	return newrefslist[referralnum]['Select-5']
 def preprefsheet(dont_run_first):
 	#Reads English referrals II
-	newrefslist = []#all referrals populated here
+	#newrefslist = []#all referrals populated here
 	with open('utf16file.csv', 'r', newline='', encoding='utf-16') as csvf:
 	#Opens a document and formats it according to myDialect, assigns object to 'reader'
 		engref2 = csv.DictReader(csvf, dialect='myDialect', quotechar='|')
 		
-		with open('lastread.txt', 'r') as num:
-			readnum = num.read()
+		#Slay the ephemeral file system
+		#####
+		
+		track_num = drive.CreateFile({'id':'1R7i_S2vtUQdhuJu2LdhKishtFrBSUYxd'})
+		readnum = track_num.GetContentString()
 		readnum = int(readnum)
+		#####
+		
+		#Open the local file and get the left off on number, replace with file from drive.
+		# with open('lastread.txt', 'r') as num:
+			# readnum = num.read()
+		# readnum = int(readnum)
 		
 		#gets where the program left off last  time
 		escaped_start1 = readnum
@@ -73,9 +83,16 @@ def preprefsheet(dont_run_first):
 		#for oldref in newrefslist[:readnum]:#puts only the old referrals in oldrefslist
 			#oldrefslist.append(oldref)
 			
+		#Write new number of referals to the file. Replace with drive.
 		readnum = len(oldrefslist) + readnum
-		savenum = open('lastread.txt', 'w')
-		savenum.write(str(readnum))
+		
+		readnum = str(readnum)
+		track_num.SetContentString(readnum)
+		track_num.Upload()
+		readnum = int(readnum)
+		
+		# savenum = open('lastread.txt', 'w')
+		# savenum.write(str(readnum))
 		
 		return {'1o':escaped_start1,'1n':readnum, 'rf':dont_run_first}
 	
@@ -132,6 +149,7 @@ drive = GoogleDrive(gauth)
 #-------------------------------------------------------------------------------------------------------------------------------------------
 folder_id = '1XhHfxaYUP_HDFSoIiP7ET63g3vSxcdpw' #<-Target folder to be read from, all docs in this folder will be read
 lister = drive.ListFile({'q': "'%s' in parents" % folder_id}).GetList()
+# ^ Vestigial ba.
 refsheet = drive.CreateFile({'id':'1Q2xMx_TJwndYrEB2cyX4MK3dchMkvuUPPD6xuU4Osfw'}) #<-This doesnt make a new file in the drive
 																			#rather it opens the document we are working with to be manipulated
 refsheet.FetchMetadata()
