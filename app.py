@@ -336,44 +336,47 @@ To register  yourself as an English Unit Leader, please send the word register, 
 								send_message(sender_id, 'No valid area name deteced, please type "Area List" for a list of areas you can register for.')
 							elif only_one == 1:
 								#TODO: Fix all of this and check to see if the area already had an ID attached to it. Throw error if it does.
+								gauth = GoogleAuth()
+								# # Try to load saved client credentials
+								gauth.LoadCredentialsFile("credentials.json")
+								if gauth.credentials is None:
+									# # Authenticate if they're not there   0auth2
+									gauth.LocalWebserverAuth()
+								elif gauth.access_token_expired:
+									# # Refresh them if expired
+									gauth.Refresh()
+								else:
+									# #Initialize the saved creds
+									gauth.Authorize()
+								# # Save the current credentials to a file
+								gauth.SaveCredentialsFile("credentials.json")
+								drive = GoogleDrive(gauth)
 								
-								# gauth = GoogleAuth()
-								# # # Try to load saved client credentials
-								# gauth.LoadCredentialsFile("credentials.json")
-								# if gauth.credentials is None:
-									# # # Authenticate if they're not there   0auth2
-									# gauth.LocalWebserverAuth()
-								# elif gauth.access_token_expired:
-									# # # Refresh them if expired
-									# gauth.Refresh()
-								# else:
-									# # #Initialize the saved creds
-									# gauth.Authorize()
-								# # # Save the current credentials to a file
-								# gauth.SaveCredentialsFile("credentials.json")
-								# drive = GoogleDrive(gauth)
+								# #drive template file  id '16VTx_WY-pWPhpK1lJWxu5t7LjISniE86'
+								# #Download csv from drive, handle inside of server,
+								keysheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
+								keysheet.FetchMetadata()
+								if u'text/csv' not in keysheet.metadata['exportLinks']:
+									# #Adds new metadata type that allows csv to read Google Sheets
+									keysheet.metadata['exportLinks'][u'text/csv'] = keysheet.metadata['exportLinks'][u'application/pdf'][:-3]+u"csv"
+								keysheet.GetContentFile('DEUL.csv', mimetype='text/csv')
+								download_mimetype = None
+								mimetypes = { 'application/vnd.google-apps.document': 'application/pdf',
+									'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
+								with open('DEUL.csv', 'a', newline='') as csvfile:
+									fieldnames = ['area', 'sender_id']
+									writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+									writer.writerow({'area': area, 'sender_id': sender_id})
 								
-								# # #drive template file  id '16VTx_WY-pWPhpK1lJWxu5t7LjISniE86'
-								# # #Download csv from drive, handle inside of server,
-								# keysheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
-								# keysheet.FetchMetadata()
-								# if u'text/csv' not in keysheet.metadata['exportLinks']:
-									# # #Adds new metadata type that allows csv to read Google Sheets
-									# keysheet.metadata['exportLinks'][u'text/csv'] = keysheet.metadata['exportLinks'][u'application/pdf'][:-3]+u"csv"
-								# keysheet.GetContentFile('DEUL.csv', mimetype='text/csv')
-								# download_mimetype = None
-								# mimetypes = { 'application/vnd.google-apps.document': 'application/pdf',
-									# 'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
-								# with open('DEUL.csv', 'a', newline='') as csvfile:
-									# fieldnames = ['area', 'sender_id']
-									# writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-									# writer.writerow({'area': area, 'sender_id': sender_id})
+								keysheet.SetContentFile('DEUL.csv')
 								
-								# #reupload
-								# keysheet.Upload()
+								#reupload
+								keysheet.Upload()
+								
+								send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
 								
 								#Fastpatch that has the recorder enter all of the Facebook ID numbers into the csv file that is processed by the local code instead of putting it into a CSV.
-								send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Please send the number "%s" to the recorder.' % (area, sender_id))
+								#send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Please send the number "%s" to the recorder.' % (area, sender_id))
 							elif only_one == 2:
 								send_message(sender_id, 'It looks while you have made a mistake while trying to register and have accidentally entered more than one class. Please try again.')
 							else:
