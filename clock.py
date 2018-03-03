@@ -176,10 +176,15 @@ escaped_start1a = sheet_one_dict['1o']
 while escaped_start1a < readnuma:
 	has_id = 0
 	area_ct_num = 0
+	is_default = 0
 	message_text1a = getref(escaped_start1a)
 	FB_text_1 = dict2ref(message_text1a)
 	print(FB_text_1)
 	read_in_sheet.clear()
+	#Download the CSV file from the cloud
+	eul_sheet = drive.CreateFile({'id':''})
+	eul_sheet.GetContentFile('EUL.csv', mimetype='text/csv')
+	#Parse the CSV file
 	with open('EUL.csv', newline='') as csvfile:
 		reader = csv.DictReader(csvfile)
 		for row in reader:
@@ -204,7 +209,10 @@ while escaped_start1a < readnuma:
 			#no id for a ref location
 			sender_id = 1422808141175994
 			has_id = 1
+			is_default = 1
 		else:
 			area_ct_num = area_ct_num + 1
 	send_message(sender_id, FB_text_1)
+	if is_default == 1:
+		send_message(1422808141175994, 'This is not for your area.')
 	escaped_start1a = escaped_start1a + 1
