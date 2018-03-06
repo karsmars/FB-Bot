@@ -60,9 +60,10 @@ def webhook():
 					#TODO: Have users agree to receiving subscription messages.
 					
 					#check for and send a general help message
+					#Unsubscribe
 					if 'help' in message_text:
 						send_message(sender_id, '''Welcome to the help message!
-To register  yourself as an English Unit Leader, please send the word register, the password for this transfer, and your area name in a message to this bot. After you send the message you will get a number back; please give this number to the recorder.
+To register  yourself as an English Unit Leader, please send the word register, the password for this transfer, and your area name in a message to this bot. After you send the message you will receive referrals for the area you registered for. To get a list of areas you can register for please send 'area list'.
 ''')
 						ignore_else = 1
 					
