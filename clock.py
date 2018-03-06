@@ -114,9 +114,11 @@ def dict2ref(single_ref_dict):
 	sqfsource = str(single_ref_dict['Source'])
 	
 	phone = '0' + phone
+	
 	line_lower = LINE.lower()
 	if 'a' not in line_lower or 'b' not in line_lower or 'c' not in line_lower or 'd' not in line_lower or 'e' not in line_lower or 'f' not in line_lower or 'g' not in line_lower or 'h' not in line_lower or 'i' not in line_lower or 'j' not in line_lower or 'k' not in line_lower or 'l' not in line_lower or 'm' not in line_lower or 'n' not in line_lower or 'o' not in line_lower or 'p' not in line_lower or 'q' not in line_lower or 'r' not in line_lower or 's' not in line_lower or 't' not in line_lower or 'u' not in line_lower or 'v' not in line_lower or 'w' not in line_lower or 'x' not in line_lower or 'y' not in line_lower or 'z' not in line_lower:
-		LINE = '0' + LINE
+		if len(line_lower) == 9:
+			LINE = '0' + LINE
 	#Compile the referal
 	ref = """Hello, you have a new referral.
 
