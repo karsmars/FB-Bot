@@ -6,7 +6,7 @@
 	#Convert from cloud to database for more reliable solution
 	#Update fields to coordinate with the fields on the website
 	#Get the CSV  parser to use UTF-8
-
+	#Add sending to multiple people
 import os
 import sys
 import json
@@ -100,6 +100,7 @@ def preprefsheet(dont_run_first):
 def dict2ref(single_ref_dict):
 	#Structures the referral into a message for missionaries
 		#Argument must be a dictionary
+	#Pull dictionaries 
 	sub_date = str(single_ref_dict['Submitted On'])
 	chin_name = str(single_ref_dict['Text-6'])
 	eng_name = str(single_ref_dict['Text-8'])
@@ -111,6 +112,12 @@ def dict2ref(single_ref_dict):
 	comments = str(single_ref_dict['Textarea-10'])
 	gospel = str(single_ref_dict['Radio-4'])
 	sqfsource = str(single_ref_dict['Source'])
+	
+	phone = '0' + phone
+	line_lower = LINE.lower()
+	if 'a' not in line_lower or 'b' not in line_lower or 'c' not in line_lower or 'd' not in line_lower or 'e' not in line_lower or 'f' not in line_lower or 'g' not in line_lower or 'h' not in line_lower or 'i' not in line_lower or 'j' not in line_lower or 'k' not in line_lower or 'l' not in line_lower or 'm' not in line_lower or 'n' not in line_lower or 'o' not in line_lower or 'p' not in line_lower or 'q' not in line_lower or 'r' not in line_lower or 's' not in line_lower or 't' not in line_lower or 'u' not in line_lower or 'v' not in line_lower or 'w' not in line_lower or 'x' not in line_lower or 'y' not in line_lower or 'z' not in line_lower:
+		LINE = '0' + LINE
+	#Compile the referal
 	ref = """Hello, you have a new referral.
 
 Send date: %s

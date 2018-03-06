@@ -33,10 +33,10 @@ content = file_a.GetContentString()
 
 #Turn  it into a number
 number = int(content)
-print(number)
+print('The old number is: %s' % (number))
 
-#add three to the number
-number = 80
+#Set the number
+number = input('Enter the number you want to set the file contents to: ')
 
 #reupload the file
 number = str(number)
