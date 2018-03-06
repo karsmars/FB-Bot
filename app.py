@@ -2,6 +2,8 @@
 #SERVER CODE#
 #############
 
+#TODO: Add a class level fill field to the register command.
+
 #Library imports.
 import os
 import sys
@@ -66,7 +68,43 @@ To register  yourself as an English Unit Leader, please send the word register, 
 					
 					#check for and send an area list message
 					if 'area list' in message_text:
-						send_message(sender_id, 'Area list not set yet set up, please contact boyd.christiansen on LINE for more info.')
+						send_message(sender_id, '''Here is a list of areas that you can subscribe to receive referrals from. If your English class is not listed here that means it is not yet on the website. If this is the case please message boyd.christiansen on LINE. Areas can be entered in characters or pinyin.
+
+台東
+竹北
+桃園
+鳳林
+新竹
+新店
+桃二
+士林
+苗栗
+看板
+安坑
+淡水
+木柵
+宜蘭
+台北市中心(信義、大安、萬華、大同、中正、中山)
+頭份
+林口
+新莊
+北投
+龍潭
+松山
+三峽
+內湖
+八德
+土城、樹林
+竹東
+板橋
+龜山-陸光新城
+花蓮
+汐止
+竹南
+中壢
+三重、蘆洲
+基隆
+羅東''')
 						ignore_else = 1
 					
 					#check for a register message

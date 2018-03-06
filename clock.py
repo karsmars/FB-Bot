@@ -120,7 +120,7 @@ def dict2ref(single_ref_dict):
 		if len(line_lower) == 9:
 			LINE = '0' + LINE
 	#Compile the referal
-	ref = """Hello, you have a new referral.
+	ref = """Hello, you have a new referral. Make sure you contact this person as soon as possible.
 
 Send date: %s
 Chinese Name: %s
