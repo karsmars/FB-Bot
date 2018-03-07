@@ -117,12 +117,12 @@ To register  yourself as an English Unit Leader, please send the word register, 
 							only_one = 0
 							#FIGURE OUT WHAT AREA THEY ARE FROM
 							#I know this is bad practice, but I can write it really fast. Please replace with a dictionary with error checking puling from a file somewhere.
-							if "yingge" in message_text  or "ying ge" in message_text or "鶯歌" in message_text:
-								if only_one == 0:
-									area = '鶯歌'
-									only_one = 1
-								else:
-									only_one = 2
+							#if "yingge" in message_text  or "ying ge" in message_text or "鶯歌" in message_text:
+								#if only_one == 0:
+									#area = '鶯歌'
+									#only_one = 1
+								#else:
+									#only_one = 2
 							
 							if "tai dong" in message_text  or "taidong" in message_text or "台東" in message_text:
 								if only_one == 0:
@@ -358,6 +358,13 @@ To register  yourself as an English Unit Leader, please send the word register, 
 							if "jilong" in message_text  or "ji long" in message_text or "基隆" in message_text:
 								if only_one == 0:
 									area = '基隆'
+									only_one = 1
+								else:
+									only_one = 2
+							
+							if "yuli" in message_text  or "yu li" in message_text or "玉里" in message_text:
+								if only_one == 0:
+									area = '玉里'
 									only_one = 1
 								else:
 									only_one = 2
