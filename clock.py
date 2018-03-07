@@ -132,7 +132,7 @@ Phone Number: %s
 Class Level: %s
 Questions, Comments, and Concerns: %s
 Do they want the gospel?: %s
-What campaign did they come from: %s
+What source did they come from?: %s
 """ % (sub_date, chin_name, eng_name, gender, location, LINE, phone, class_level, comments, gospel, sqfsource)
 	return ref
 
