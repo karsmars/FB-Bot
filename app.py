@@ -369,7 +369,7 @@ To register  yourself as an English Unit Leader, please send the word register, 
 								else:
 									only_one = 2
 									
-							if "zhonghe" in message_text  or "zhong he" in message_text or "中和" in message_text or "yonghe" in message_textor "yong he" in message_text or "永和" in message_text:
+							if "zhonghe" in message_text or "zhong he" in message_text or "中和" in message_text or "yonghe" in message_text or "yong he" in message_text or "永和" in message_text:
 								if only_one == 0:
 									area = '中和、永和'
 									only_one = 1
