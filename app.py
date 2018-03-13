@@ -105,7 +105,8 @@ To register  yourself as an English Unit Leader, please send the word register, 
 中壢
 三重、蘆洲
 基隆
-羅東''')
+羅東
+中和、永和''')
 						ignore_else = 1
 					
 					#check for a register message
