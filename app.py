@@ -66,6 +66,21 @@ def webhook():
 						if only_one == 0:
 							send_message(sender_id, 'No valid area name deteced, please type "Area List" for a list of areas you can unsubscribe from.')
 						elif only_one == 1:
+							gauth = GoogleAuth()
+							# # Try to load saved client credentials
+							gauth.LoadCredentialsFile("credentials.json")
+							if gauth.credentials is None:
+								# # Authenticate if they're not there   0auth2
+								gauth.LocalWebserverAuth()
+							elif gauth.access_token_expired:
+								# # Refresh them if expired
+								gauth.Refresh()
+							else:
+								# #Initialize the saved creds
+								gauth.Authorize()
+							# # Save the current credentials to a file
+							gauth.SaveCredentialsFile("credentials.json")
+							drive = GoogleDrive(gauth)
 							eulonbotsheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
 							eulonbotsheet.FetchMetadata()
 							eulonbotsheet.GetContentFile('DEUL.csv', mimetype='text/csv')
