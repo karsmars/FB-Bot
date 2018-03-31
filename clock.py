@@ -100,6 +100,8 @@ def dict2ref(single_ref_dict):
 	gospel = str(single_ref_dict['Radio-4'])
 	sqfsource = str(single_ref_dict['Source'])
 	
+	
+	#TODO: Add special characters to LINE protection and make stronger protection for the phone. (+886, etc.)
 	if phone == '0':
 		phone = 'No phone number provided.'
 	else:
