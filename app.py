@@ -257,6 +257,7 @@ def which_area(message_text):
 			#only_one = 1
 		#else:
 			#only_one = 2
+	area = "none"
 	
 	if "tai dong" in message_text  or "taidong" in message_text or "台東" in message_text:
 		if only_one == 0:
