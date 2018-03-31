@@ -44,9 +44,7 @@ def webhook():
 
 		for entry in data["entry"]:
 			for messaging_event in entry["messaging"]:
-
 				if messaging_event.get("message"):  # someone sent us a message
-
 					sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending the message
 					recipient_id = messaging_event["recipient"]["id"]  # our facebook ID number
 					message_text = messaging_event["message"]["text"]  # the message's text
@@ -62,7 +60,7 @@ def webhook():
 					#check for and send a general help message
 					#Unsubscribe
 					if 'unsubscribe' in message_text:
-						
+						area = "none"
 						only_one, area = which_area(message_text)
 						
 						if only_one == 0:
