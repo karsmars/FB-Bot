@@ -59,6 +59,12 @@ def webhook():
 					
 					#check for and send a general help message
 					#Unsubscribe
+					# send_message(sender_id, '''Hello and welcome! I am Ricardo the facebook referral bot. I can help you do 4 things:
+					# Register to recieve referrals for an area- type: "register(insert transfer password here)(insert your area name here)"
+					# Display a help message- type "help"
+					# Display a list of all the available areas- type "area list"
+					# Unsubscribe you from recieving referrals- type "unsubscribe(insert area name here)"
+					# Which can I do for you?''')
 					if 'unsubscribe' in message_text:
 						area = "none"
 						only_one, area = which_area(message_text)
@@ -115,7 +121,7 @@ def webhook():
 					
 					if 'help' in message_text:
 						send_message(sender_id, '''Welcome to the help message!
-To register  yourself as an English Unit Leader, please send the word register, the password for this transfer, and your area name in a message to this bot. After you send the message you will receive referrals for the area you registered for. To get a list of areas you can register for please send 'area list'.
+To register  yourself as an English Unit Leader, please send the word "register", the password for this transfer, and your area name in a message to this bot. After you send the message you will receive referrals for the area you registered for. To get a list of areas you can register for please send 'area list'.
 ''')
 						ignore_else = 1
 					
@@ -123,42 +129,42 @@ To register  yourself as an English Unit Leader, please send the word register, 
 					if 'area list' in message_text:
 						send_message(sender_id, '''Here is a list of areas that you can subscribe to receive referrals from. If your English class is not listed here that means it is not yet on the website. If this is the case please message boyd.christiansen on LINE. Areas can be entered in characters or pinyin.
 
-台東
-竹北
-桃園
-鳳林
-新竹
-新店
-桃二
-士林
-苗栗
-看板
-安坑
-淡水
-木柵
-宜蘭
-台北市中心(信義、大安、萬華、大同、中正、中山)
-頭份
-林口
-新莊
-北投
-龍潭
-松山
-三峽
-內湖
-八德
-土城、樹林
-竹東
-板橋
-龜山-陸光新城
-花蓮
-汐止
-竹南
-中壢
-三重、蘆洲
-基隆
-羅東
-中和、永和''')
+台東/Taidong
+竹北/Zhubei
+桃園/Taoyuan
+鳳林/Fenglin
+新竹/Xinzhu
+新店/Xindian
+桃二/Taoer
+士林/Shulin
+苗栗/Miaoli
+看板/Kanban
+安坑/Ankang
+淡水/Danshui
+木柵/Muzha
+宜蘭/Yilan
+台北市中心(信義、大安、萬華、大同、中正、中山)/Taibei City (Xinyi, Daan, Wanhua, Datong, Zhongzheng, Zhongshan)
+頭份/Toufen
+林口/Linkou
+新莊/Xinzhuang
+北投/Beitou
+龍潭/Longtan
+松山/Songshan
+三峽/Sanxia
+內湖/Neihu
+八德/Bade
+土城、樹林/Tucheng,Shilin
+竹東/Zhudong
+板橋/Banqiao
+龜山-陸光新城/Guishan-Luguang
+花蓮/Hualian
+汐止/Xizhi
+竹南/Zhunan
+中壢/Zhongli
+三重、蘆洲/Sanchong,Luzhou
+基隆/Jilong
+羅東/Luodong
+中和、永和/Zhonghe,Yonghe''')
 						ignore_else = 1
 					
 					#check for a register message
@@ -189,37 +195,38 @@ To register  yourself as an English Unit Leader, please send the word register, 
 								# # Save the current credentials to a file
 								gauth.SaveCredentialsFile("credentials.json")
 								drive = GoogleDrive(gauth)
-								
+								#---------------------------------------------------------------------------------------------
 								# #drive template file  id '16VTx_WY-pWPhpK1lJWxu5t7LjISniE86'
 								# #Download csv from drive, handle inside of server,
+								################# eulfile = open('DEUL.csv', 'r', encoding='utf-8')######example read
+								# csvreadthispls = csv.reader(eulfile)
+								# eullist = []
+								# for eul in csvreadthispls:
+									# if eul[0] == area and eul[1] == sender_id:
+										# eul[1] = 'unsubscribed'
+									# eullist.append(eul)
+								################ eulfile.close()
 								keysheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
 								keysheet.FetchMetadata()
-								if u'text/csv' not in keysheet.metadata['exportLinks']:
-									# #Adds new metadata type that allows csv to read Google Sheets
-									keysheet.metadata['exportLinks'][u'text/csv'] = keysheet.metadata['exportLinks'][u'application/pdf'][:-3]+u"csv"
 								keysheet.GetContentFile('DEUL.csv', mimetype='text/csv')
-								download_mimetype = None
-								mimetypes = { 'application/vnd.google-apps.document': 'application/pdf',
-									'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
 								#read in whole thing as a dictionary
 								#or force formatting
-								with open('DEUL.csv', 'a', newline='') as csvfile:
-									csvfile.write('''
+								# checkifreg = open('DEUL.csv', 'r', encoding='utf-8')
+								# readit = csv.reader(checkifreg)
+								# for reul in readit:
+									# if reul[1] = 
+								csvfile = open('DEUL.csv', 'a', newline='')
+								csvfile.write('''
 %s,%s''' % (area, sender_id))
-									csvfile.close()
-									#fieldnames = ['area', 'sender_id']
-									#writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-									#writer.writerow({'area': area, 'sender_id': sender_id})
-								
+								csvfile.close()
 								keysheet.SetContentFile('DEUL.csv')
-								
 								#reupload
 								keysheet.Upload()
-								
+								#---------------------------------------------------------------------------------------------
 								send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
 								
 							elif only_one == 2:
-								send_message(sender_id, 'It looks while you have made a mistake while trying to register and have accidentally entered more than one class. Please try again.')
+								send_message(sender_id, 'It looks you have made a mistake while trying to register and have accidentally entered more than one class. Please try again.')
 							else:
 								send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
 						else:
