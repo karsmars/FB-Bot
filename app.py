@@ -198,32 +198,25 @@ To register  yourself as an English Unit Leader, please send the word "register"
 								#---------------------------------------------------------------------------------------------
 								# #drive template file  id '16VTx_WY-pWPhpK1lJWxu5t7LjISniE86'
 								# #Download csv from drive, handle inside of server,
-								################# eulfile = open('DEUL.csv', 'r', encoding='utf-8')######example read
-								# csvreadthispls = csv.reader(eulfile)
-								# eullist = []
-								# for eul in csvreadthispls:
-									# if eul[0] == area and eul[1] == sender_id:
-										# eul[1] = 'unsubscribed'
-									# eullist.append(eul)
-								################ eulfile.close()
 								keysheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
 								keysheet.FetchMetadata()
 								keysheet.GetContentFile('DEUL.csv', mimetype='text/csv')
 								#read in whole thing as a dictionary
 								#or force formatting
-								# checkifreg = open('DEUL.csv', 'r', encoding='utf-8')
-								# readit = csv.reader(checkifreg)
-								# for reul in readit:
-									# if reul[1] = 
-								csvfile = open('DEUL.csv', 'a', newline='')
-								csvfile.write('''
+								checkifreg = open('DEUL.csv', 'r', encoding='utf-8')
+								readit = csv.reader(checkifreg)
+								for reul in readit:
+									if reul[0] == area and reul[1] != "unsubscribed":
+										print("Sorry, this area has already been subscribed to.")
+									else:
+										csvfile = open('DEUL.csv', 'a', newline='')
+										csvfile.write('''
 %s,%s''' % (area, sender_id))
-								csvfile.close()
-								keysheet.SetContentFile('DEUL.csv')
-								#reupload
-								keysheet.Upload()
-								#---------------------------------------------------------------------------------------------
-								send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
+										csvfile.close()
+										keysheet.SetContentFile('DEUL.csv')
+									#reupload
+										keysheet.Upload()
+										send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
 								
 							elif only_one == 2:
 								send_message(sender_id, 'It looks you have made a mistake while trying to register and have accidentally entered more than one class. Please try again.')
