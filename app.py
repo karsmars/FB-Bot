@@ -118,7 +118,7 @@ def webhook():
 							send_message(sender_id, 'It looks you have made a mistake while trying to unsubscribe and accidentally entered more than one area. Please enter only one area at a time.')
 						else:
 							send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
-					
+						ignore_else = 1
 					if 'help' in message_text:
 						send_message(sender_id, '''Welcome to the help message!
 To register  yourself as an English Unit Leader, please send the word "register", the password for this transfer, and your area name in a message to this bot. After you send the message you will receive referrals for the area you registered for. To get a list of areas you can register for please send 'area list'.
@@ -252,21 +252,24 @@ To register  yourself as an English Unit Leader, please send the word "register"
 #TODO: Add subscription service message tagging
 	#See breaking change notice for Facebook Messenger Platform V2.2 https://developers.facebook.com/docs/messenger-platform/send-messages/
 def send_message(recipient_id, message_text):
-    params = {
-        "access_token": "EAAEmOnlImrQBAOL0HonblqEoKiHnNQVcb1ykCH68cGgBuvkNMGsbgnYKQGagXou8EjunOrZCfI4soyqxPsmjlUkjoANN47UdVOgqu8FtbG6WvYYMHfHaaxVa4ZBmVFejdls3l7jGzp9BMKiuxi1enCUGkgjrZCSS4bZADhUeZAGYVunZAA2rbH"#os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": recipient_id
-        },
-        "message": {
-            "text": message_text
-        }
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+	if recipient_id == "unsubscribed":
+		pass
+	else:
+		params = {
+			"access_token": "EAAEmOnlImrQBAOL0HonblqEoKiHnNQVcb1ykCH68cGgBuvkNMGsbgnYKQGagXou8EjunOrZCfI4soyqxPsmjlUkjoANN47UdVOgqu8FtbG6WvYYMHfHaaxVa4ZBmVFejdls3l7jGzp9BMKiuxi1enCUGkgjrZCSS4bZADhUeZAGYVunZAA2rbH"#os.environ["PAGE_ACCESS_TOKEN"]
+		}
+		headers = {
+			"Content-Type": "application/json"
+		}
+		data = json.dumps({
+			"recipient": {
+				"id": recipient_id
+			},
+			"message": {
+				"text": message_text
+			}
+		})
+		r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
 
 def which_area(message_text):
 	only_one = 0
