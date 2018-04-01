@@ -64,7 +64,7 @@ def webhook():
 						only_one, area = which_area(message_text)
 						
 						if only_one == 0:
-							send_message(sender_id, 'No valid area name deteced, please type "Area List" for a list of areas you can unsubscribe from.')
+							send_message(sender_id, 'No valid area name detected, please type "Area List" for a list of areas you can unsubscribe from.')
 						elif only_one == 1:
 							gauth = GoogleAuth()
 							# # Try to load saved client credentials
@@ -92,7 +92,7 @@ def webhook():
 									eul[1] = 'unsubscribed'
 								eullist.append(eul)
 							eulfile.close()
-							eulfile = open('testDEUL.csv', 'w', encoding='utf-8')
+							eulfile = open('DEUL.csv', 'w', encoding='utf-8')
 							roworg = 0
 							for weul in eullist:
 								for info in weul:
@@ -103,13 +103,13 @@ def webhook():
 										eulfile.write(info + '\n')
 										roworg = roworg + 1
 									else:
-										print('error')
+										print('rewrite error')
 							eulfile.close()
 							eulonbotsheet.SetContentFile('DEUL.csv')
 							eulonbotsheet.Upload()
-							send_message(sender_id, '''Thanks for all you do! You will no longer receive referrals for %s. Have a nice day.''' % (area))
+							send_message(sender_id, 'Thanks for all you do! You will no longer receive referrals for %s. Have a nice day.' % (area))
 						elif only_one == 2:
-							send_message(sender_id, 'It looks while you have made a mistake while trying to unsubscribe and have accidentally entered more than one class. Please enter only one class at a time.')
+							send_message(sender_id, 'It looks you have made a mistake while trying to unsubscribe and accidentally entered more than one area. Please enter only one area at a time.')
 						else:
 							send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
 					
