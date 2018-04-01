@@ -216,7 +216,7 @@ To register  yourself as an English Unit Leader, please send the word "register"
 										keysheet.SetContentFile('DEUL.csv')
 									#reupload
 										keysheet.Upload()
-										send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
+									send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
 								
 							elif only_one == 2:
 								send_message(sender_id, 'It looks you have made a mistake while trying to register and have accidentally entered more than one class. Please try again.')
