@@ -113,7 +113,6 @@ def webhook():
 							eulonbotsheet.SetContentFile('DEUL.csv')
 							eulonbotsheet.Upload()
 							send_message(sender_id, 'Thanks for all you do! You will no longer receive referrals for %s. Have a nice day.' % (area))
-							print(area)
 						elif only_one == 2:
 							send_message(sender_id, 'It looks you have made a mistake while trying to unsubscribe and accidentally entered more than one area. Please enter only one area at a time.')
 						else:
@@ -208,7 +207,6 @@ To register  yourself as an English Unit Leader, please send the word "register"
 								for reul in readit:
 									if reul[0] == area and reul[1] != "unsubscribed":
 										print("Sorry, this area has already been subscribed to.")
-										print(area)
 										write = False
 									else:
 										write = True
@@ -217,10 +215,9 @@ To register  yourself as an English Unit Leader, please send the word "register"
 #%s,%s''' % (area, sender_id))
 								checkifreg.close()
 								if write == True:
-									print(area)
 									addneweul = open('DEUL.csv', 'a', encoding='utf-8')
 									addneweul.write('''
-#%s,%s''' % (area, sender_id))
+%s,%s''' % (area, sender_id))
 									addneweul.close()
 								#csvfile.close()
 								keysheet.SetContentFile('DEUL.csv')
