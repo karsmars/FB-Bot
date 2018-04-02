@@ -68,7 +68,7 @@ def webhook():
 					if 'unsubscribe' in message_text:
 						area = "none"
 						only_one, area = which_area(message_text)
-						
+						print(area)
 						if only_one == 0:
 							send_message(sender_id, 'No valid area name detected, please type "Area List" for a list of areas you can unsubscribe from.')
 						elif only_one == 1:
@@ -114,6 +114,7 @@ def webhook():
 							eulonbotsheet.SetContentFile('DEUL.csv')
 							eulonbotsheet.Upload()
 							send_message(sender_id, 'Thanks for all you do! You will no longer receive referrals for %s. Have a nice day.' % (area))
+							print(area)
 						elif only_one == 2:
 							send_message(sender_id, 'It looks you have made a mistake while trying to unsubscribe and accidentally entered more than one area. Please enter only one area at a time.')
 						else:
@@ -174,7 +175,7 @@ To register  yourself as an English Unit Leader, please send the word "register"
 							send_message(sender_id, "Registration attempt registered. Correct password entered.")
 							
 							only_one, area = which_area(message_text)
-							
+							print(area)
 							#PROCESS IF THEIR REGISTRATION MESSAGE WITH PROPPER PASSWORD HAD AN ERROR AND REACT ACCORDINGLY
 							if only_one == 0:
 								send_message(sender_id, 'No valid area name deteced, please type "Area List" for a list of areas you can register for.')
@@ -208,6 +209,7 @@ To register  yourself as an English Unit Leader, please send the word "register"
 								for reul in readit:
 									if reul[0] == area and reul[1] != "unsubscribed":
 										print("Sorry, this area has already been subscribed to.")
+										print(area)
 										write = False
 									else:
 										write = True
@@ -225,6 +227,7 @@ To register  yourself as an English Unit Leader, please send the word "register"
 								#reupload
 								keysheet.Upload()
 								send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
+								print(area)
 							elif only_one == 2:
 								send_message(sender_id, 'It looks you have made a mistake while trying to register and have accidentally entered more than one class. Please try again.')
 							else:
