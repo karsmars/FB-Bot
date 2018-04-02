@@ -203,18 +203,23 @@ To register  yourself as an English Unit Leader, please send the word "register"
 								keysheet.GetContentFile('DEUL.csv', mimetype='text/csv')
 								#read in whole thing as a dictionary
 								#or force formatting
-								checkifreg = open('DEUL.csv', 'r+', encoding='utf-8')
+								checkifreg = open('DEUL.csv', 'r', encoding='utf-8')
 								readit = csv.reader(checkifreg)
 								for reul in readit:
 									if reul[0] == area and reul[1] != "unsubscribed":
 										print("Sorry, this area has already been subscribed to.")
+										write = False
 									else:
+										write = True
 										#csvfile = open('DEUL.csv', 'a', newline='')
 										#csvfile.write('''
 #%s,%s''' % (area, sender_id))
-										readit.write('''
-#%s,%s''' % (area, sender_id))
 								checkifreg.close()
+								if write = True:
+									addneweul = open('DEUL.csv', 'a', encoding='utf-8')
+									addneweul.write('''
+#%s,%s''' % (area, sender_id))
+									addneweul.close()
 								#csvfile.close()
 								keysheet.SetContentFile('DEUL.csv')
 								#reupload
