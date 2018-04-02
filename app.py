@@ -215,7 +215,7 @@ To register  yourself as an English Unit Leader, please send the word "register"
 										#csvfile.write('''
 #%s,%s''' % (area, sender_id))
 								checkifreg.close()
-								if write = True:
+								if write == True:
 									addneweul = open('DEUL.csv', 'a', encoding='utf-8')
 									addneweul.write('''
 #%s,%s''' % (area, sender_id))
