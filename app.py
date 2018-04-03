@@ -107,6 +107,10 @@ def webhook():
 							areasheet.Upload()
 							areasheet_gdrive_id = drive.CreateFile({'id':areasheet['id']})
 							areasheet.FetchMetadata(fetch_all=True) #->  https://developers.google.com/drive/v2/reference/files#resource-representations list of metadata
+							permission = areasheet.InsertPermission({
+													'type': 'anyone',
+													'value': 'anyone',
+													'role': 'writer'})
 							areasheet_gdrive_id.GetContentFile('areasheet.csv', mimetype='text/csv')
 							nareasheet = open('areasheet.csv', "w", encoding='utf-8')
 							fieldnames = ['Submitted On','Text-6','Text-8','Radio-2','Select-5','LINE ID','Text-9','Radio-3','Textarea-10','Radio-4','Source']
@@ -117,10 +121,6 @@ def webhook():
 							areasheet_gdrive_id.SetContentFile('areasheet.csv')
 							areasheet_gdrive_id.Upload()
 							send_message(sender_id, areasheet['alternateLink'])
-							# permission = areasheet.InsertPermission({
-											# 'type': 'anyone',
-											# 'value': 'anyone',
-											# 'role': 'writer'})
 						else:
 							print('SHEETS FUNCTION NOT WORKING')
 					if 'unsubscribe' in message_text:
