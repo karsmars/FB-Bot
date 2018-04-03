@@ -58,13 +58,35 @@ def webhook():
 					#TODO: Have users agree to receiving subscription messages.
 					
 					#check for and send a general help message
-					#Unsubscribe
 					# send_message(sender_id, '''Hello and welcome! I am Ricardo the facebook referral bot. I can help you do 4 things:
 					# Register to recieve referrals for an area- type: "register(insert transfer password here)(insert your area name here)"
 					# Display a help message- type "help"
 					# Display a list of all the available areas- type "area list"
 					# Unsubscribe you from recieving referrals- type "unsubscribe(insert area name here)"
 					# Which can I do for you?''')
+					if 'sheet' in message_text:
+						area = "none"
+						only_one, area = which_area(message_text)
+						if only_one == 0:
+							send_message(sender_id, 'No valid area name detected, please type "Area List" for a list of areas you can unsubscribe from.')
+						elif only_one == 1:
+							gauth = GoogleAuth()
+							# # Try to load saved client credentials
+							gauth.LoadCredentialsFile("credentials.json")
+							if gauth.credentials is None:
+								# # Authenticate if they're not there   0auth2
+								gauth.LocalWebserverAuth()
+							elif gauth.access_token_expired:
+								# # Refresh them if expired
+								gauth.Refresh()
+							else:
+								# #Initialize the saved creds
+								gauth.Authorize()
+							# # Save the current credentials to a file
+							gauth.SaveCredentialsFile("credentials.json")
+							drive = GoogleDrive(gauth)
+							###auth complete##
+							sheetmaker(area)
 					if 'unsubscribe' in message_text:
 						area = "none"
 						only_one, area = which_area(message_text)
@@ -86,6 +108,7 @@ def webhook():
 							# # Save the current credentials to a file
 							gauth.SaveCredentialsFile("credentials.json")
 							drive = GoogleDrive(gauth)
+							###auth complete###
 							eulonbotsheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
 							eulonbotsheet.FetchMetadata()
 							eulonbotsheet.GetContentFile('DEUL.csv', mimetype='text/csv')
@@ -200,8 +223,6 @@ To register  yourself as an English Unit Leader, please send the word "register"
 								keysheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
 								keysheet.FetchMetadata()
 								keysheet.GetContentFile('DEUL.csv', mimetype='text/csv')
-								#read in whole thing as a dictionary
-								#or force formatting
 								checkifreg = open('DEUL.csv', 'r', encoding='utf-8')
 								readit = csv.reader(checkifreg)
 								for reul in readit:
@@ -209,19 +230,14 @@ To register  yourself as an English Unit Leader, please send the word "register"
 										print("Sorry, this area has already been subscribed to.")
 										write = False
 									else:
-										write = True
-										#csvfile = open('DEUL.csv', 'a', newline='')
-										#csvfile.write('''
-#%s,%s''' % (area, sender_id))
+										write = True)
 								checkifreg.close()
 								if write == True:
 									addneweul = open('DEUL.csv', 'a', encoding='utf-8')
 									addneweul.write('''
 %s,%s''' % (area, sender_id))
 									addneweul.close()
-								#csvfile.close()
 								keysheet.SetContentFile('DEUL.csv')
-								#reupload
 								keysheet.Upload()
 								send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
 							elif only_one == 2:
@@ -542,3 +558,35 @@ def which_area(message_text):
 		#else:
 			#only_one = 2
 	return (only_one, area)
+
+def sheetmaker(area):
+	####################Access referral database, get the appropriate referrals for the users area and put them in list arearefs
+	refdatabase = drive.CreateFile({'id':'1Q2xMx_TJwndYrEB2cyX4MK3dchMkvuUPPD6xuU4Osfw'})
+	refdatabase.GetContentFile('refdatabase.csv', mimetype='text/csv')
+	referrals = open('refdatabase.csv', "r", encoding='utf-8')
+	rdb = csv.DictReader(referrals)
+	arearefs = []
+	for referral in rdb:
+		if referral['Select-5'] == area:
+			arearefs.append(referral)
+
+	#####################Create a new sheet for that area, populate it using the list arearefs.
+	#areasheet = drive.CreateFile({'id':'1Prra8o6HXS2R6H1fq_4e1IZh4bB2O8WobA9mCy8V-j4'})
+	areasheet = drive.CreateFile({'title':area + ' English Class Referrals', "mimeType": "application/vnd.google-apps.spreadsheet"})
+	areasheet.Upload()
+	areasheet_gdrive_id = drive.CreateFile({'id':areasheet['id']})
+	areasheet.FetchMetadata(fetch_all=True) #->  https://developers.google.com/drive/v2/reference/files#resource-representations list of metadata
+	areasheet_gdrive_id.GetContentFile('areasheet.csv', mimetype='text/csv')
+	nareasheet = open('areasheet.csv', "w", encoding='utf-8')
+	fieldnames = ['Submitted On','Text-6','Text-8','Radio-2','Select-5','LINE ID','Text-9','Radio-3','Textarea-10','Radio-4','Source']
+	writenewrefs = csv.DictWriter(nareasheet, fieldnames=fieldnames)
+	for locref in arearefs:
+		#nareasheet.write(locref)
+		writenewrefs.writerow(locref)
+	areasheet_gdrive_id.SetContentFile('areasheet.csv')
+	areasheet_gdrive_id.Upload()
+	send_message(sender_id, areasheet['alternateLink'])
+	# permission = areasheet.InsertPermission({
+					# 'type': 'anyone',
+					# 'value': 'anyone',
+					# 'role': 'writer'})
