@@ -108,8 +108,7 @@ def webhook():
 							for locref in arearefs:
 								writenewrefs.writerow(locref)
 							areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
-														"mimeType": "application/vnd.google-apps.spreadsheet",
-														'id': '1Prra8o6HXS2R6H1fq_4e1IZh4bB2O8WobA9mCy8V-j4'})
+														"mimeType": "application/vnd.google-apps.spreadsheet"})
 							areasheet.SetContentFile('areasheet.csv')
 							areasheet.GetContentFile('areasheet.csv', mimetype='text/csv')
 							areasheet.Upload()
