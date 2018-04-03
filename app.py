@@ -230,7 +230,7 @@ To register  yourself as an English Unit Leader, please send the word "register"
 										print("Sorry, this area has already been subscribed to.")
 										write = False
 									else:
-										write = True)
+										write = True
 								checkifreg.close()
 								if write == True:
 									addneweul = open('DEUL.csv', 'a', encoding='utf-8')
