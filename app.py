@@ -110,7 +110,6 @@ def webhook():
 							areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
 														"mimeType": "application/vnd.google-apps.spreadsheet"})
 							areasheet.SetContentFile('areasheet.csv')
-							areasheet.GetContentFile('areasheet.csv', mimetype='text/csv')
 							areasheet.Upload()
 							send_message(sender_id, areasheet['alternateLink'])
 						else:
