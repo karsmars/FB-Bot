@@ -107,10 +107,10 @@ def webhook():
 							areasheet.Upload()
 							# areasheet_gdrive_id = drive.CreateFile({'id':areasheet['id']})
 							# areasheet.FetchMetadata(fetch_all=True) #->  https://developers.google.com/drive/v2/reference/files#resource-representations list of metadata
-							permission = areasheet.InsertPermission({
-													'type': 'anyone',
-													'value': 'anyone',
-													'role': 'owner'})
+							# permission = areasheet.InsertPermission({
+													# 'type': 'anyone',
+													# 'value': 'anyone',
+													# 'role': 'owner'})
 							# areasheet_gdrive_id.GetContentFile('areasheet.csv', mimetype='text/csv')
 							areasheet.GetContentFile('areasheet.csv', mimetype='text/csv')
 							nareasheet = open('areasheet.csv', "w", encoding='utf-8')
