@@ -121,8 +121,8 @@ def webhook():
 							# areasheet_gdrive_id.SetContentFile('areasheet.csv')
 							# areasheet_gdrive_id.Upload()
 							# send_message(sender_id, areasheet['alternateLink'])
-						else:
-							print('SHEETS FUNCTION NOT WORKING')
+						# else:
+							# print('SHEETS FUNCTION NOT WORKING')
 					if 'unsubscribe' in message_text:
 						area = "none"
 						only_one, area = which_area(message_text)
