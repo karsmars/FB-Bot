@@ -103,7 +103,9 @@ def webhook():
 									arearefs.append(referral)
 							#####################Create a new sheet for that area, populate it using the list arearefs.
 							#areasheet = drive.CreateFile({'id':'1Prra8o6HXS2R6H1fq_4e1IZh4bB2O8WobA9mCy8V-j4'})
-							areasheet = drive.CreateFile({'title':area + ' English Class Referrals', "mimeType": "application/vnd.google-apps.spreadsheet"})
+							areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
+														"mimeType": "application/vnd.google-apps.spreadsheet",
+														'id': '1Prra8o6HXS2R6H1fq_4e1IZh4bB2O8WobA9mCy8V-j4'})
 							areasheet.Upload()
 							# areasheet_gdrive_id = drive.CreateFile({'id':areasheet['id']})
 							# areasheet.FetchMetadata(fetch_all=True) #->  https://developers.google.com/drive/v2/reference/files#resource-representations list of metadata
