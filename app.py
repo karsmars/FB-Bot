@@ -102,28 +102,16 @@ def webhook():
 								if referral['Select-5'] == area:
 									arearefs.append(referral)
 							#####################Create a new sheet for that area, populate it using the list arearefs.
-							#areasheet = drive.CreateFile({'id':'1Prra8o6HXS2R6H1fq_4e1IZh4bB2O8WobA9mCy8V-j4'})
-							areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
-														"mimeType": "application/vnd.google-apps.spreadsheet",
-														'id': '1Prra8o6HXS2R6H1fq_4e1IZh4bB2O8WobA9mCy8V-j4'})
-							areasheet.Upload()
-							# areasheet_gdrive_id = drive.CreateFile({'id':areasheet['id']})
-							# areasheet.FetchMetadata(fetch_all=True) #->  https://developers.google.com/drive/v2/reference/files#resource-representations list of metadata
-							# permission = areasheet.InsertPermission({
-													# 'type': 'anyone',
-													# 'value': 'anyone',
-													# 'role': 'owner'})
-							# areasheet_gdrive_id.GetContentFile('areasheet.csv', mimetype='text/csv')
-							areasheet.GetContentFile('areasheet.csv', mimetype='text/csv')
 							nareasheet = open('areasheet.csv', "w", encoding='utf-8')
 							fieldnames = ['Submitted On','Text-6','Text-8','Radio-2','Select-5','LINE ID','Text-9','Radio-3','Textarea-10','Radio-4','Source']
 							writenewrefs = csv.DictWriter(nareasheet, fieldnames=fieldnames)
 							for locref in arearefs:
-								#nareasheet.write(locref)
 								writenewrefs.writerow(locref)
-							# areasheet_gdrive_id.SetContentFile('areasheet.csv')
-							# areasheet_gdrive_id.Upload()
+							areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
+														"mimeType": "application/vnd.google-apps.spreadsheet",
+														'id': '1Prra8o6HXS2R6H1fq_4e1IZh4bB2O8WobA9mCy8V-j4'})
 							areasheet.SetContentFile('areasheet.csv')
+							areasheet.GetContentFile('areasheet.csv', mimetype='text/csv')
 							areasheet.Upload()
 							send_message(sender_id, areasheet['alternateLink'])
 						else:
