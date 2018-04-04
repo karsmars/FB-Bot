@@ -44,11 +44,14 @@ def webhook():
 
 		for entry in data["entry"]:
 			for messaging_event in entry["messaging"]:
-				if messaging_event.get("message"):  # someone sent us a message
+				if messaging_event.get("message"): # someone sent us a message
+					print(messaging_event)
+					print(messaging_event["sender"]["id"])
+					print(messaging_event["recipient"]["id"])
+					print(messaging_event["message"]["text"])
 					sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending the message
 					recipient_id = messaging_event["recipient"]["id"]  # our facebook ID number
 					message_text = messaging_event["message"]["text"]  # the message's text
-					
 					#lowercase message text so we don't have to care about capitalization
 					message_text = message_text.lower()
 					
@@ -64,10 +67,7 @@ def webhook():
 					# Display a list of all the available areas- type "area list"
 					# Unsubscribe you from recieving referrals- type "unsubscribe(insert area name here)"
 					# Which can I do for you?''')
-					
-					
-					
-					
+
 					if 'sheet' in message_text:
 						area = "none"
 						only_one, area = which_area(message_text)
@@ -115,8 +115,8 @@ def webhook():
 							areasheet.SetContentFile('areasheet.csv')
 							areasheet.Upload(param={'convert': True})
 							permission = areasheet.InsertPermission({'type': 'anyone',
-									'value': 'anyone',
-									'role': 'writer'})
+																	'value': 'anyone',
+																	'role': 'writer'})
 							send_message(sender_id, areasheet['alternateLink'])
 							ignore_else = 1
 						else:
