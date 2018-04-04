@@ -108,9 +108,9 @@ def webhook():
 							for locref in arearefs:
 								writenewrefs.writerow(locref)
 							areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
-														"mimeType": "application/vnd.google-apps.spreadsheet"})
+														"mimeType": "text/csv"})
 							areasheet.SetContentFile('areasheet.csv')
-							areasheet.Upload()
+							areasheet.Upload(param={'convert': True})
 							send_message(sender_id, areasheet['alternateLink'])
 					if 'unsubscribe' in message_text:
 						area = "none"
