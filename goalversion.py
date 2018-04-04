@@ -593,6 +593,3 @@ def which_area(message_text):
 		#else:
 			#only_one = 2
 	return (only_one, area)
-
-#def sheetmaker(areaname):
-	

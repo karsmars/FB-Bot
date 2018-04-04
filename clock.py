@@ -1,3 +1,12 @@
+############
+#LOCAL CODE#
+############
+
+#TODO: Make the sheet be in the cloud.
+	#Convert from cloud to database for more reliable solution
+	#Update fields to coordinate with the fields on the website
+	#Get the CSV  parser to use UTF-8
+	#Add sending to multiple people
 import os
 import sys
 import json
@@ -8,35 +17,12 @@ from datetime import datetime
 import requests
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
-gauth = GoogleAuth()
-# Try to load saved client credentials
-gauth.LoadCredentialsFile("credentials.json")
-if gauth.credentials is None:
-	# Authenticate if they're not there   0auth2
-	#gauth.LocalWebserverAuth()
-	gauth.CommandLineAuth()
-elif gauth.access_token_expired:
-	# Refresh them if expired
-	gauth.Refresh()
-else:
-	#Initialize the saved creds
-	gauth.Authorize()
-# Save the current credentials to a file
-gauth.SaveCredentialsFile("credentials.json")
-drive = GoogleDrive(gauth)
 
-
-newreferrals = []
-referrallist = []
+csv.register_dialect('myDialect', delimiter=',', quoting=csv.QUOTE_NONE)
+oldrefslist = []
+newrefslist = []
 dont_run_first = 0
 read_in_sheet = {}
-googlerefsheet = drive.CreateFile({'id':'1Q2xMx_TJwndYrEB2cyX4MK3dchMkvuUPPD6xuU4Osfw'}) #<-This doesnt make a new file in the drive
-																			#rather it opens the document we are working with to be manipulated
-googlerefsheet.FetchMetadata()
-googlerefsheet.GetContentFile('googlerefsheet.csv', mimetype='text/csv')
-referrals = open('googlerefsheet.csv', "r", encoding='utf-8')
-csvrefsheet = csv.DictReader(referrals)
-
 
 def send_message(recipient_id, message_text):
     params = {
@@ -55,35 +41,62 @@ def send_message(recipient_id, message_text):
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
 def getref(referralnum):
-	#uses the provided integer to call a referral from the list referrallist by its indice
-	return referrallist[referralnum]
+	#calls the list reflist which contains each of the referrals in dictionary form. Prints all the keys and dictionaries.
+	#Accepts a int arguement to find a referral.
+	return newrefslist[referralnum]
 def getarea(referralnum):
-	#uses the provided integer to call a referral's area from the list referrallist by its indice
-	return referrallist[referralnum]['Select-5']
+	#calls the list reflist and accepts an int to find a referral than accesses the key value for that referrals location.	
+	return newrefslist[referralnum]['Select-5']
 def preprefsheet(dont_run_first):
-	track_num = drive.CreateFile({'id':'1R7i_S2vtUQdhuJu2LdhKishtFrBSUYxd'})
-	readnum = track_num.GetContentString()
-	readnum = int(readnum)
-	#gets where the program left off last  time
-	escaped_start1 = readnum
-	if dont_run_first == 1:
-		referrallist.clear()
-		newreferrals.clear()
-	else:
-		dont_run_first = 1
-	#THIS for loop is to make a list that serves as a complete library of all referrals 
-	for referral in csvrefsheet:# puts 100percent of referrals in referrallist to be manipulated by dict2ref
-		referrallist.append(referral)
-	#AND THIS for loop is for counting how many of the referrals are new compared to last time and recording that amount
-	for newref in referrallist[readnum:]:#puts only the new referrals in newreferrals so that they can be counted and added to readnum then uploaded to gdrive as track_num
-		newreferrals.append(newref)
-	#Write new number of referrals to a track_num and throw it up into drive
-	readnum = len(newreferrals) + readnum
-	readnum = str(readnum)
-	track_num.SetContentString(readnum)
-	track_num.Upload()
-	readnum = int(readnum)
-	return {'1o':escaped_start1,'1n':readnum, 'rf':dont_run_first}
+	#Reads English referrals II
+	#newrefslist = []#all referrals populated here
+	with open('utf16file.csv', 'r', newline='', encoding='utf-16') as csvf:
+	#Opens a document and formats it according to myDialect, assigns object to 'reader'
+		engref2 = csv.DictReader(csvf, dialect='myDialect', quotechar='|')
+		
+		#Slay the ephemeral file system
+		#####
+		
+		track_num = drive.CreateFile({'id':'1R7i_S2vtUQdhuJu2LdhKishtFrBSUYxd'})
+		readnum = track_num.GetContentString()
+		readnum = int(readnum)
+		#####
+		
+		#Open the local file and get the left off on number, replace with file from drive.
+		# with open('lastread.txt', 'r') as num:
+			# readnum = num.read()
+		# readnum = int(readnum)
+		
+		#gets where the program left off last  time
+		escaped_start1 = readnum
+		
+		if dont_run_first == 1:
+			newrefslist.clear()
+			oldrefslist.clear()
+		else:
+			dont_run_first = 1
+		
+		for referral in engref2:# puts 100percent of referrals in newrefslist
+			newrefslist.append(referral)
+		for newref in newrefslist[readnum:]:#puts only the new referrals in oldrefslist
+			oldrefslist.append(newref)
+		#for oldref in newrefslist[:readnum]:#puts only the old referrals in oldrefslist
+			#oldrefslist.append(oldref)
+			
+		#Write new number of referals to the file. Replace with drive.
+		readnum = len(oldrefslist) + readnum
+		
+		readnum = str(readnum)
+		track_num.SetContentString(readnum)
+		track_num.Upload()
+		readnum = int(readnum)
+		
+		# savenum = open('lastread.txt', 'w')
+		# savenum.write(str(readnum))
+		
+		return {'1o':escaped_start1,'1n':readnum, 'rf':dont_run_first}
+	
+#TODO: Update  all of these to the fields that the actual Drive form uses. Add a source field.
 def dict2ref(single_ref_dict):
 	#Structures the referral into a message for missionaries
 		#Argument must be a dictionary
@@ -100,19 +113,24 @@ def dict2ref(single_ref_dict):
 	gospel = str(single_ref_dict['Radio-4'])
 	sqfsource = str(single_ref_dict['Source'])
 	
+<<<<<<< HEAD
 	
 	#TODO: Add special characters to LINE protection and make stronger protection for the phone. (+886, etc.)
 	if phone == '0':
 		phone = 'No phone number provided.'
 	else:
 		phone = '0' + phone
+=======
+	phone = '0' + phone
+>>>>>>> parent of 9220064... Simplification and bug fix.
 	
 	line_lower = LINE.lower()
 	if 'a' not in line_lower and 'b' not in line_lower and 'c' not in line_lower and 'd' not in line_lower and 'e' not in line_lower and 'f' not in line_lower and 'g' not in line_lower and 'h' not in line_lower and 'i' not in line_lower and 'j' not in line_lower and 'k' not in line_lower and 'l' not in line_lower and 'm' not in line_lower and 'n' not in line_lower and 'o' not in line_lower and 'p' not in line_lower and 'q' not in line_lower and 'r' not in line_lower and 's' not in line_lower and 't' not in line_lower and 'u' not in line_lower and 'v' not in line_lower and 'w' not in line_lower and 'x' not in line_lower and 'y' not in line_lower and 'z' not in line_lower:
 		if len(line_lower) == 9:
 			LINE = '0' + LINE
-	#Compile the referral
+	#Compile the referal
 	ref = """Hello, you have a new referral. Make sure you contact this person as soon as possible.
+
 Send date: %s
 Chinese Name: %s
 English Name: %s
@@ -126,9 +144,44 @@ Do they want the gospel?: %s
 What source did they come from?: %s
 """ % (sub_date, chin_name, eng_name, gender, location, LINE, phone, class_level, comments, gospel, sqfsource)
 	return ref
-	#print(ref)
-# for ref in csvrefsheet:
-	# dict2ref(ref)
+
+#AUTHENTICATION
+#-------------------------------------------------------------------------------------------------------------------------------------------
+gauth = GoogleAuth()
+# Try to load saved client credentials
+gauth.LoadCredentialsFile("credentials.json")
+if gauth.credentials is None:
+	# Authenticate if they're not there   0auth2
+	#gauth.LocalWebserverAuth()
+	gauth.CommandLineAuth()
+elif gauth.access_token_expired:
+	# Refresh them if expired
+	gauth.Refresh()
+else:
+	#Initialize the saved creds
+	gauth.Authorize()
+# Save the current credentials to a file
+gauth.SaveCredentialsFile("credentials.json")
+drive = GoogleDrive(gauth)
+#FILE ACCESS AND READING
+#-------------------------------------------------------------------------------------------------------------------------------------------
+folder_id = '1XhHfxaYUP_HDFSoIiP7ET63g3vSxcdpw' #<-Target folder to be read from, all docs in this folder will be read
+lister = drive.ListFile({'q': "'%s' in parents" % folder_id}).GetList()
+# ^ Vestigial ba.
+refsheet = drive.CreateFile({'id':'1Q2xMx_TJwndYrEB2cyX4MK3dchMkvuUPPD6xuU4Osfw'}) #<-This doesnt make a new file in the drive
+																			#rather it opens the document we are working with to be manipulated
+refsheet.FetchMetadata()
+refsheet.GetContentFile('utf8file.csv', mimetype='text/csv')
+file_old = open('utf8file.csv', mode='r', encoding='utf-8')
+file_new = open('utf16file.csv', mode='w', newline='', encoding='utf-16')
+file_new.write(file_old.read())
+file_old.close()
+file_new.close()
+download_mimetype = None
+mimetypes = { 'application/vnd.google-apps.document': 'application/pdf',
+	'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
+#-------------------------------------------------------------------------------------------------------------------------------------------
+
 sheet_one_dict = preprefsheet(dont_run_first)
 dont_run_first = sheet_one_dict['rf']
 readnuma = sheet_one_dict['1n']
@@ -136,6 +189,7 @@ escaped_start1a = sheet_one_dict['1o']
 
 # print("readnuma %s" % (readnuma))
 # print("escaped_start1a %s" % (escaped_start1a))
+
 
 while escaped_start1a < readnuma:
 	has_id = 0
@@ -180,5 +234,3 @@ while escaped_start1a < readnuma:
 	if is_default == 1:
 		send_message(1422808141175994, 'This is not for your area.')
 	escaped_start1a = escaped_start1a + 1
-		
-referrals.close()
