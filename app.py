@@ -549,7 +549,7 @@ def which_area(message_text):
 			#only_one = 2
 	return (only_one, area)
 
-def sheetmaker(a):
+def sheetmaker(areaname):
 	#creates a google sheet with referrals for a specific area.
 	#Authorize
 	gauth = GoogleAuth()
@@ -575,7 +575,7 @@ def sheetmaker(a):
 	rdb = csv.DictReader(referrals)
 	arearefs = []
 	for referral in rdb:
-		if referral['Select-5'] == area:
+		if referral['Select-5'] == areaname:
 			arearefs.append(referral)
 	#####################Create a new sheet for that area, populate it using the list arearefs.
 	nareasheet = open('areasheet.csv', "w", encoding='utf-8')
@@ -585,7 +585,7 @@ def sheetmaker(a):
 		writenewrefs.writerow(locref)
 	referrals.close()
 	nareasheet.close()
-	areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
+	areasheet = drive.CreateFile({'title':areaname + ' English Class Referrals',
 								"mimeType": "text/csv"})
 	areasheet.SetContentFile('areasheet.csv')
 	areasheet.Upload(param={'convert': True})
