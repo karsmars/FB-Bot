@@ -73,6 +73,7 @@ def webhook():
 						only_one, area = which_area(message_text)
 						if only_one == 0:
 							send_message(sender_id, 'No valid area name detected, please type "Area List" for a list of areas you can unsubscribe from.')
+							ignore_else = 1
 						elif only_one == 1:
 							#creates a google sheet with referrals for a specific area.
 							#Authorize
@@ -117,8 +118,10 @@ def webhook():
 									'value': 'anyone',
 									'role': 'writer'})
 							send_message(sender_id, areasheet['alternateLink'])
+							ignore_else = 1
 						else:
 							send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
+							ignore_else = 1
 					if 'unsubscribe' in message_text:
 						area = "none"
 						only_one, area = which_area(message_text)
