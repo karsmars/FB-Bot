@@ -112,8 +112,6 @@ def webhook():
 							areasheet.SetContentFile('areasheet.csv')
 							areasheet.Upload()
 							send_message(sender_id, areasheet['alternateLink'])
-						else:
-							print('SHEETS FUNCTION NOT WORKING')
 					if 'unsubscribe' in message_text:
 						area = "none"
 						only_one, area = which_area(message_text)
