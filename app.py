@@ -161,7 +161,7 @@ def webhook():
 								drive = GoogleDrive(gauth)
 								###auth complete###
 								####################Access referral database, get the appropriate referrals for the users area and put them in list arearefs
-								send_message(sender_id, "Alrighty, google sheet for %s coming up. Should take a few seconds." % (area))
+								send_message(sender_id, "Alrighty, google sheet for %s coming up. It might take a few seconds." % (area))
 								refdatabase = drive.CreateFile({'id':'1Q2xMx_TJwndYrEB2cyX4MK3dchMkvuUPPD6xuU4Osfw'})
 								refdatabase.GetContentFile('refdatabase.csv', mimetype='text/csv')
 								referrals = open('refdatabase.csv', "r", encoding='utf-8')
@@ -185,7 +185,7 @@ def webhook():
 								permission = areasheet.InsertPermission({'type': 'anyone',
 																		'value': 'anyone',
 																		'role': 'writer'})
-								send_message(sender_id, "Here you go, this google sheet contains all the English Referrals you've received so far\n" + areasheet['alternateLink'])
+								send_message(sender_id, "Here you go!\n" + areasheet['alternateLink'])
 								ignore_else = 1
 							else:
 								send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
