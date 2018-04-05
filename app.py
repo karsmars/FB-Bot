@@ -365,11 +365,13 @@ def webhook():
 									keysheet.GetContentFile('DEUL.csv', mimetype='text/csv')
 									checkifreg = open('DEUL.csv', 'r', encoding='utf-8')
 									readit = csv.reader(checkifreg)
+									pass_flag = False
 									for reul in readit:
 										if reul[0] == area and reul[1] != "unsubscribed":
 											send_message(sender_id, "Sorry, this area has already been subscribed to.")
 											write = False
-										else:
+											pass_flag = True
+										elif pass_flag == False:
 											write = True
 									checkifreg.close()
 									if write == True:
