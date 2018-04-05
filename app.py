@@ -161,7 +161,7 @@ def webhook():
 								drive = GoogleDrive(gauth)
 								###auth complete###
 								####################Access referral database, get the appropriate referrals for the users area and put them in list arearefs
-								send_message(sender_id, "Alrighty, google sheet for %s coming up. Should take a few seconds." %s (area))
+								send_message(sender_id, "Alrighty, google sheet for %s coming up. Should take a few seconds." % (area))
 								refdatabase = drive.CreateFile({'id':'1Q2xMx_TJwndYrEB2cyX4MK3dchMkvuUPPD6xuU4Osfw'})
 								refdatabase.GetContentFile('refdatabase.csv', mimetype='text/csv')
 								referrals = open('refdatabase.csv', "r", encoding='utf-8')
