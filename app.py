@@ -116,10 +116,10 @@ def webhook():
 									if "5" in class_level:
 										class_level_formed =  class_level_formed + "|General Class|"
 									#better handle multiple classes at one location
-									full_message_area = '''For area %s:
+									full_message_area = '''For area %s:\n
 
-Class level(s): %s
-Time of class(es): %s till %s
+Class level(s): %s\n
+Time of class(es): %s till %s\n
 Class address(es): %s''' % (area, class_level_formed, class_time_start, class_time_end, class_address)
 									if class_level == "none":
 										#Temporary fix, replace with update.
