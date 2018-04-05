@@ -104,6 +104,8 @@ def webhook():
 											class_time_start = area_row[2]
 											class_time_end = area_row[3]
 											class_address = area_row[4]
+										else:
+											send_message(sender_id, "Area not included yet.")
 									class_level_formed = ""
 									if "1" in class_level:
 										class_level_formed =  class_level_formed + "|Parent/Child Class|"
