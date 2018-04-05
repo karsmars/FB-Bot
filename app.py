@@ -123,7 +123,7 @@ Time of class(es): %s till %s
 Class address(es): %s''' % (area, class_level_formed, class_time_start, class_time_end, class_address)
 									if class_level == "none":
 										#Temporary fix, replace with update.
-										send_message(sender_id, "Either no classes are taught at this location or there is a gap in our knowledge. Please contact boyd.christiansen on LINE."
+										send_message(sender_id, "Either no classes are taught at this location or there is a gap in our knowledge. Please contact boyd.christiansen on LINE.")
 									else:
 										send_message(sender_id, full_message_area)
 								elif only_one == 2:
