@@ -152,7 +152,7 @@ while escaped_start1a < readnuma:
 	read_in_sheet.clear()
 	#Parse the CSV file
 	#with open('EUL_LIST.csv', newline='') as csvfile:
-	csvfile = open('EUL_LIST.csv', 'a', encoding='utf-8')
+	csvfile = open('EUL_LIST.csv', 'r', encoding='utf-8')
 	reader = csv.DictReader(csvfile)
 	for row in reader:
 		key = 'area'
