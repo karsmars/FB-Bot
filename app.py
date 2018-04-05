@@ -274,9 +274,17 @@ def webhook():
 								send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
 							ignore_else = 1
 						if 'help' in message_text:
-							send_message(sender_id, '''Welcome to the help message!
-	To register  yourself as an English Unit Leader, please send the word "register", the password for this transfer, and your area name in a message to this bot. After you send the message you will receive referrals for the area you registered for. To get a list of areas you can register for please send 'area list'.
-	''')
+						send_message(sender_id, '''Welcome to the help message! Here are the commands you can use:\n
+						In order to register to recieve referrals for an area- type: "register(insert transfer password here)(insert your area name here)"\n
+						to display the help message- type "help" (you did it!)\n
+						Display a list of all the available areas- type "area list"\n
+						Unsubscribe your facebook account from recieving referrals from an area- type "unsubscribe(insert area name here)"\n
+						Request a google sheet with all of your areas English Referrals to date: type "Sheet(insert area name here)\n"
+						If you have any questions or concerns please contact boyd.christiansen on LINE.
+						''')
+							#send_message(sender_id, '''Welcome to the help message!
+	#To register  yourself as an English Unit Leader, please send the word "register", the password for this transfer, and your area name in a message to this bot. After you send the message you will receive referrals for the area you registered for. To get a list of areas you can register for please send 'area list'.
+	#''')
 							ignore_else = 1
 						
 						#check for and send an area list message
@@ -359,7 +367,7 @@ def webhook():
 									readit = csv.reader(checkifreg)
 									for reul in readit:
 										if reul[0] == area and reul[1] != "unsubscribed":
-											print("Sorry, this area has already been subscribed to.")
+											send_message(sender_id, "Sorry, this area has already been subscribed to.")
 											write = False
 										else:
 											write = True
@@ -367,11 +375,11 @@ def webhook():
 									if write == True:
 										addneweul = open('DEUL.csv', 'a', encoding='utf-8')
 										addneweul.write('''
-	%s,%s''' % (area, sender_id))
+%s,%s''' % (area, sender_id))
 										addneweul.close()
+										send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
 									keysheet.SetContentFile('DEUL.csv')
 									keysheet.Upload()
-									send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
 								elif only_one == 2:
 									send_message(sender_id, 'It looks you have made a mistake while trying to register and have accidentally entered more than one class. Please try again.')
 								else:
