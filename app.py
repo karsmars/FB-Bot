@@ -67,7 +67,56 @@ def webhook():
 						# Display a list of all the available areas- type "area list"
 						# Unsubscribe you from recieving referrals- type "unsubscribe(insert area name here)"
 						# Which can I do for you?''')
+						
+						if 'info' in message_text:
+							if 'update' in message_text:
+								send_message(sender_id, "Updating class information from the bot has not yet been built. Please message boyd.christiansen on LINE.")
+							else:
+								only_one, area = which_area(message_text)
+								if only_one == 0:
+									send_message(sender_id, 'No valid area name detected, please type "Area List" for a list of areas you can unsubscribe from.')
+								elif only_one == 1:
+									gauth = GoogleAuth()
+									# # Try to load saved client credentials
+									gauth.LoadCredentialsFile("credentials.json")
+									if gauth.credentials is None:
+										# # Authenticate if they're not there   0auth2
+										gauth.LocalWebserverAuth()
+									elif gauth.access_token_expired:
+										# # Refresh them if expired
+										gauth.Refresh()
+									else:
+										# #Initialize the saved creds
+										gauth.Authorize()
+									# # Save the current credentials to a file
+									gauth.SaveCredentialsFile("credentials.json")
+									drive = GoogleDrive(gauth)
+									###auth complete###
+									areainfobotsheet = drive.CreateFile({'id':'1Prra8o6HXS2R6H1fq_4e1IZh4bB2O8WobA9mCy8V-j4'})
+									areainfobotsheet.FetchMetadata()
+									areainfobotsheet.GetContentFile('area_info.csv', mimetype='text/csv')
+									areafile = open('area_info.csv', 'r', encoding='utf-8')
+									areareader = csv.reader(areafile)
+									class_level = "none"
+									for area_row in areareader:
+										if area_row[0] == area:
+											class_level = area_row[1]
+											class_time = area_row[2]
+											class_address = area_row[3]
+									full_message_area = '''For area %s:
 
+Class level(s): %s
+Time of class(es): %s
+Class address(es): %s''' % (area, class_level, class_time, class_address)
+									send_message(sender_id, full_message_area)
+								elif only_one == 2:
+									send_message(sender_id, 'It looks you have made a mistake while trying to get info about a area and accidentally entered more than one area. Please enter only one area at a time.')
+								else:
+									send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
+								
+							ignore_else = 1
+							
+							
 						if 'sheet' in message_text:
 							area = "none"
 							only_one, area = which_area(message_text)
