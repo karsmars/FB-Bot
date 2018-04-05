@@ -276,10 +276,15 @@ def webhook():
 						if 'help' in message_text:
 							send_message(sender_id, '''Welcome to the help message! Here are the commands you can use:
 In order to register to recieve referrals for an area- type: "register(insert transfer password here)(insert your area name here)".
+---------
 To display the help message- type "help" (you did it!).
+---------
 Display a list of all the available areas- type "area list".
+---------
 Unsubscribe your facebook account from recieving referrals from an area- type "unsubscribe(insert area name here)".
+---------
 Request a google sheet with all of your areas english referrals to date: type "sheet(insert area name here)".
+---------
 If you have any questions or concerns please contact boyd.christiansen on LINE.''')
 							#send_message(sender_id, '''Welcome to the help message!
 	#To register  yourself as an English Unit Leader, please send the word "register", the password for this transfer, and your area name in a message to this bot. After you send the message you will receive referrals for the area you registered for. To get a list of areas you can register for please send 'area list'.
