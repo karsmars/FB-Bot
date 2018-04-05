@@ -274,12 +274,12 @@ def webhook():
 								send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
 							ignore_else = 1
 						if 'help' in message_text:
-							send_message(sender_id, '''Welcome to the help message! Here are the commands you can use:\n
-						In order to register to recieve referrals for an area- type: "register(insert transfer password here)(insert your area name here)"\n
-						to display the help message- type "help" (you did it!)\n
-						Display a list of all the available areas- type "area list"\n
-						Unsubscribe your facebook account from recieving referrals from an area- type "unsubscribe(insert area name here)"\n
-						Request a google sheet with all of your areas English Referrals to date: type "Sheet(insert area name here)\n"
+							send_message(sender_id, '''Welcome to the help message! Here are the commands you can use:
+						In order to register to recieve referrals for an area- type: "register(insert transfer password here)(insert your area name here)".
+						To display the help message- type "help" (you did it!).
+						Display a list of all the available areas- type "area list".
+						Unsubscribe your facebook account from recieving referrals from an area- type "unsubscribe(insert area name here)".
+						Request a google sheet with all of your areas english referrals to date: type "sheet(insert area name here)".
 						If you have any questions or concerns please contact boyd.christiansen on LINE.
 						''')
 							#send_message(sender_id, '''Welcome to the help message!
