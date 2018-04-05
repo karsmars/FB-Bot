@@ -113,16 +113,11 @@ def dict2ref(single_ref_dict):
 	gospel = str(single_ref_dict['Radio-4'])
 	sqfsource = str(single_ref_dict['Source'])
 	
-<<<<<<< HEAD
-	
 	#TODO: Add special characters to LINE protection and make stronger protection for the phone. (+886, etc.)
 	if phone == '0':
 		phone = 'No phone number provided.'
 	else:
 		phone = '0' + phone
-=======
-	phone = '0' + phone
->>>>>>> parent of 9220064... Simplification and bug fix.
 	
 	line_lower = LINE.lower()
 	if 'a' not in line_lower and 'b' not in line_lower and 'c' not in line_lower and 'd' not in line_lower and 'e' not in line_lower and 'f' not in line_lower and 'g' not in line_lower and 'h' not in line_lower and 'i' not in line_lower and 'j' not in line_lower and 'k' not in line_lower and 'l' not in line_lower and 'm' not in line_lower and 'n' not in line_lower and 'o' not in line_lower and 'p' not in line_lower and 'q' not in line_lower and 'r' not in line_lower and 's' not in line_lower and 't' not in line_lower and 'u' not in line_lower and 'v' not in line_lower and 'w' not in line_lower and 'x' not in line_lower and 'y' not in line_lower and 'z' not in line_lower:
