@@ -139,7 +139,9 @@ escaped_start1a = sheet_one_dict['1o']
 
 # print("readnuma %s" % (readnuma))
 # print("escaped_start1a %s" % (escaped_start1a))
-
+#Download the CSV file from the cloud
+eul_sheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
+eul_sheet.GetContentFile('EUL_LIST.csv', mimetype='text/csv')
 while escaped_start1a < readnuma:
 	has_id = 0
 	area_ct_num = 0
@@ -148,9 +150,6 @@ while escaped_start1a < readnuma:
 	FB_text_1 = dict2ref(message_text1a)
 	print(FB_text_1)
 	read_in_sheet.clear()
-	#Download the CSV file from the cloud
-	eul_sheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
-	eul_sheet.GetContentFile('EUL_LIST.csv', mimetype='text/csv')
 	#Parse the CSV file
 	#with open('EUL_LIST.csv', newline='') as csvfile:
 	csvfile = open('EUL_LIST.csv', 'a', encoding='utf-8')

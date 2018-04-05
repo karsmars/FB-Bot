@@ -109,15 +109,15 @@ def webhook():
 											send_message(sender_id, "Area not included yet.")
 									class_level_formed = ""
 									if "1" in class_level:
-										class_level_formed =  class_level_formed + "|Parent/Child Class|"
+										class_level_formed =  class_level_formed + "Parent/Child Class"
 									if "2" in class_level:
-										class_level_formed =  class_level_formed + "|Beginner Class|"
+										class_level_formed =  class_level_formed + "Beginner Class"
 									if "3" in class_level:
-										class_level_formed =  class_level_formed + "|Intermediate Class|"
+										class_level_formed =  class_level_formed + "Intermediate Class"
 									if "4" in class_level:
-										class_level_formed =  class_level_formed + "|Advanced Class|"
+										class_level_formed =  class_level_formed + "Advanced Class"
 									if "5" in class_level:
-										class_level_formed =  class_level_formed + "|General Class|"
+										class_level_formed =  class_level_formed + "General Class"
 									#better handle multiple classes at one location
 									full_message_area = '''For area %s:\n
 
