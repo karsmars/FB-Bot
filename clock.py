@@ -152,16 +152,17 @@ while escaped_start1a < readnuma:
 	eul_sheet = drive.CreateFile({'id':'15nNIEKubHxVFnVkxk_mkFRBPmmuHHHMp_E-rpU9OrAQ'})
 	eul_sheet.GetContentFile('EUL_LIST.csv', mimetype='text/csv')
 	#Parse the CSV file
-	with open('EUL_LIST.csv', newline='') as csvfile:
-		reader = csv.DictReader(csvfile)
-		for row in reader:
-			key = 'area'
-			read_in_sheet.setdefault(key, [])
-			read_in_sheet[key].append(row['area'])
-			key = 'sender_id'
-			read_in_sheet.setdefault(key, [])
-			read_in_sheet[key].append(row['sender_id'])
-		csvfile.close()
+	#with open('EUL_LIST.csv', newline='') as csvfile:
+	csvfile = open('EUL_LIST.csv', 'a', encoding='utf-8')
+	reader = csv.DictReader(csvfile)
+	for row in reader:
+		key = 'area'
+		read_in_sheet.setdefault(key, [])
+		read_in_sheet[key].append(row['area'])
+		key = 'sender_id'
+		read_in_sheet.setdefault(key, [])
+		read_in_sheet[key].append(row['sender_id'])
+	csvfile.close()
 	#pull ref recipient
 	ww_num = len(read_in_sheet['area'])
 	ww_num = ww_num - 1
