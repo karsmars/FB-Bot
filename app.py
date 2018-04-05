@@ -45,12 +45,9 @@ def webhook():
 		for entry in data["entry"]:
 			for messaging_event in entry["messaging"]:
 				if messaging_event.get("message"): # someone sent us a message
-					print(messaging_event)
-					print(messaging_event["sender"]["id"])
-					print(messaging_event["recipient"]["id"])
-					print(messaging_event["message"]["text"])
-					if messaging_event["message"]["text"] not in message_event["message"]:
-						pass, 200
+					if "text" not in messaging_event["message"].keys():
+						return "Not a text message", 200
+						pass
 					else:
 						sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending the message
 						recipient_id = messaging_event["recipient"]["id"]  # our facebook ID number
