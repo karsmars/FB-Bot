@@ -25,21 +25,24 @@ dont_run_first = 0
 read_in_sheet = {}
 
 def send_message(recipient_id, message_text):
-    params = {
-        "access_token": "EAAEmOnlImrQBAOL0HonblqEoKiHnNQVcb1ykCH68cGgBuvkNMGsbgnYKQGagXou8EjunOrZCfI4soyqxPsmjlUkjoANN47UdVOgqu8FtbG6WvYYMHfHaaxVa4ZBmVFejdls3l7jGzp9BMKiuxi1enCUGkgjrZCSS4bZADhUeZAGYVunZAA2rbH"#os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": recipient_id
-        },
-        "message": {
-            "text": message_text
-        }
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+	if recipient_id == "unsubscribed":
+		pass
+	else:
+		params = {
+			"access_token": "EAAEmOnlImrQBAOL0HonblqEoKiHnNQVcb1ykCH68cGgBuvkNMGsbgnYKQGagXou8EjunOrZCfI4soyqxPsmjlUkjoANN47UdVOgqu8FtbG6WvYYMHfHaaxVa4ZBmVFejdls3l7jGzp9BMKiuxi1enCUGkgjrZCSS4bZADhUeZAGYVunZAA2rbH"#os.environ["PAGE_ACCESS_TOKEN"]
+		}
+		headers = {
+			"Content-Type": "application/json"
+		}
+		data = json.dumps({
+			"recipient": {
+				"id": recipient_id
+			},
+			"message": {
+				"text": message_text
+			}
+		})
+		r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
 def getref(referralnum):
 	#calls the list reflist which contains each of the referrals in dictionary form. Prints all the keys and dictionaries.
 	#Accepts a int arguement to find a referral.
