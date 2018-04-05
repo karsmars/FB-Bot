@@ -100,7 +100,7 @@ def webhook():
 									# send_message(sender_id, 'It looks you have made a mistake while trying to update info about a area and accidentally entered more than one area. Please enter only one area at a time.')
 								# else:
 									# send_message(sender_id, 'You were never supposed to see this message. A serious error has occured. Please contact boyd.christiansen on LINE immediately.')
-								send_message(sender_id, "Updating class information from the bot has not yet been built. Please message boyd.christiansen on LINE.")
+								#send_message(sender_id, "Updating class information from the bot has not yet been built. Please message boyd.christiansen on LINE.")
 							# else:
 								# only_one, area = which_area(message_text)
 								# if only_one == 0:
@@ -147,14 +147,14 @@ def webhook():
 										# class_level_formed =  class_level_formed + "Advanced Class"
 									# if "5" in class_level:
 										# class_level_formed =  class_level_formed + "General Class"
-									better handle multiple classes at one location
+									#better handle multiple classes at one location
 									# full_message_area = '''For area %s:\n
 
 # Class level(s): %s\n
 # Time of class(es): %s till %s\n
 # Class address(es): %s''' % (area, class_level_formed, class_time_start, class_time_end, class_address)
 									# if class_level == "none":
-										Temporary fix, replace with update.
+										#Temporary fix, replace with update.
 										# send_message(sender_id, "Either no classes are taught at this location or there is a gap in our knowledge. Please contact boyd.christiansen on LINE.")
 									# else:
 										# send_message(sender_id, full_message_area)
