@@ -101,14 +101,31 @@ def webhook():
 									for area_row in areareader:
 										if area_row[0] == area:
 											class_level = area_row[1]
-											class_time = area_row[2]
-											class_address = area_row[3]
+											class_time_start = area_row[2]
+											class_time_end = area_row[3]
+											class_address = area_row[4]
+									class_level_formed = ""
+									if "1" in class_level:
+										class_level_formed =  class_level_formed + "|Parent/Child Class|"
+									if "2" in class_level:
+										class_level_formed =  class_level_formed + "|Beginner Class|"
+									if "3" in class_level:
+										class_level_formed =  class_level_formed + "|Intermediate Class|"
+									if "4" in class_level:
+										class_level_formed =  class_level_formed + "|Advanced Class|"
+									if "5" in class_level:
+										class_level_formed =  class_level_formed + "|General Class|"
+									#better handle multiple classes at one location
 									full_message_area = '''For area %s:
 
 Class level(s): %s
-Time of class(es): %s
-Class address(es): %s''' % (area, class_level, class_time, class_address)
-									send_message(sender_id, full_message_area)
+Time of class(es): %s till %s
+Class address(es): %s''' % (area, class_level_formed, class_time_start, class_time_end, class_address)
+									if class_level == "none":
+										#Temporary fix, replace with update.
+										send_message(sender_id, "Either no classes are taught at this location or there is a gap in our knowledge. Please contact boyd.christiansen on LINE."
+									else:
+										send_message(sender_id, full_message_area)
 								elif only_one == 2:
 									send_message(sender_id, 'It looks you have made a mistake while trying to get info about a area and accidentally entered more than one area. Please enter only one area at a time.')
 								else:
