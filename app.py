@@ -191,29 +191,32 @@ def webhook():
 								###auth complete###
 								####################Access referral database, get the appropriate referrals for the users area and put them in list arearefs
 								send_message(sender_id, "Alrighty, google sheet for %s coming up. It might take a few seconds." % (area))
+								file_list = drive.ListFile().GetList()
+								for file in file_list:
+									if file['title'] == area + ' English Class Referrals':
+										file.Delete()
 								refdatabase = drive.CreateFile({'id':'1Q2xMx_TJwndYrEB2cyX4MK3dchMkvuUPPD6xuU4Osfw'})
 								refdatabase.GetContentFile('refdatabase.csv', mimetype='text/csv')
-								referrals = open('refdatabase.csv', "r", encoding='utf-8')
-								rdb = csv.DictReader(referrals)
+								referrals = open('refdatabase.csv', "r", newline='', encoding='utf-8')
+								rdb = csv.reader(referrals)
 								arearefs = []
 								for referral in rdb:
-									if referral['Select-5'] == area:
+									if referral[4] == area:
 										arearefs.append(referral)
+								referrals.close()
 								#####################Create a new sheet for that area, populate it using the list arearefs.
-								nareasheet = open('areasheet.csv', "w", encoding='utf-8')
-								fieldnames = ['Submitted On','Text-6','Text-8','Radio-2','Select-5','LINE ID','Text-9','Radio-3','Textarea-10','Radio-4','Source']
-								writenewrefs = csv.DictWriter(nareasheet, fieldnames=fieldnames)
+								nareasheet = open('areasheet.csv', "w", newline='', encoding='utf-8')
+								writenewrefs = csv.writer(nareasheet)
 								for locref in arearefs:
 									writenewrefs.writerow(locref)
-								referrals.close()
 								nareasheet.close()
 								areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
-															"mimeType": "text/csv"})
+															  "mimeType": "text/csv"})
 								areasheet.SetContentFile('areasheet.csv')
 								areasheet.Upload(param={'convert': True})
 								permission = areasheet.InsertPermission({'type': 'anyone',
-																		'value': 'anyone',
-																		'role': 'writer'})
+																		 'value': 'anyone',
+																		 'role': 'writer'})
 								send_message(sender_id, "Here you go!\n" + areasheet['alternateLink'])
 								ignore_else = 1
 							else:
