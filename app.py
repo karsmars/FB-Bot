@@ -298,42 +298,40 @@ If you have any questions or concerns please contact boyd.christiansen on LINE.'
 						if 'area list' in message_text:
 							send_message(sender_id, '''Here is a list of areas that you can subscribe to receive referrals from. If your English class is not listed here that means it is not yet on the website. If this is the case please message boyd.christiansen on LINE. Areas can be entered in characters or pinyin.
 
-	台東/Taidong
-	竹北/Zhubei
-	桃園/Taoyuan
-	鳳林/Fenglin
-	新竹/Xinzhu
-	新店/Xindian
-	桃二/Taoer
-	士林/Shulin
-	苗栗/Miaoli
-	看板/Kanban
-	安坑/Ankang
-	淡水/Danshui
-	木柵/Muzha
-	宜蘭/Yilan
-	台北市中心(信義、大安、萬華、大同、中正、中山)/Taibei City (Xinyi, Daan, Wanhua, Datong, Zhongzheng, Zhongshan)
-	頭份/Toufen
-	林口/Linkou
-	新莊/Xinzhuang
-	北投/Beitou
-	龍潭/Longtan
-	松山/Songshan
-	三峽/Sanxia
-	內湖/Neihu
-	八德/Bade
-	土城、樹林/Tucheng,Shilin
-	竹東/Zhudong
-	板橋/Banqiao
-	龜山-陸光新城/Guishan-Luguang
-	花蓮/Hualian
-	汐止/Xizhi
-	竹南/Zhunan
-	中壢/Zhongli
-	三重、蘆洲/Sanchong,Luzhou
-	基隆/Jilong
-	羅東/Luodong
-	中和、永和/Zhonghe,Yonghe''')
+淡水/Danshui
+汐止/Xizhi
+北投/Beitou
+士林/Shulin
+內湖/Neihu
+松山/Songshan
+台北市中心(信義、大安、萬華、大同、中正、中山)/Central Taipei(Xinyi, Daan, Wanhua, Datong, Zhongzheng, Zhongshan)
+三重、蘆洲/Sanchong,Luzhou
+新莊/Xinzhuang
+土城、樹林/Tucheng,Shulin
+板橋/Kanban
+中和、永和/Zhonghe,Yonghe
+木柵/Mujia
+新店/Xindian
+安坑/Ankang
+三峽/Sanxia
+林口/Linkou
+北桃園/North Taoyuan
+南桃園/South Taoyuan
+龜山 - 陸光新城/Guishan-Luguang
+中壢/Zhongli
+八德/Bade
+龍潭/Longtan
+竹北/Zhubei
+竹東/Zhudong
+新竹/Xinzhu
+竹南/Zhunan
+頭份/Toufen
+苗栗/Miaoli
+宜蘭/Yilan
+花蓮/Hualian
+鳳林/Fenglin
+台東/Taidong
+玉里/Yuli''')
 							ignore_else = 1
 						
 						#check for a register message
