@@ -33,8 +33,13 @@ def verify():
 
     return "Hello world", 200
 	
-#Define the POST route for the webhook
 @app.route('/', methods=['POST'])
+def clean_dumb_FB_crap_because_we_made_bugs():
+	return "ok", 200
+
+	
+#Define the POST route for the webhook
+@app.route('/temp_vest', methods=['POST'])
 def webhook():
 
 	#Pull in the json sent by the POST request
@@ -410,8 +415,8 @@ If you have any questions or concerns please contact boyd.christiansen on LINE.'
 					if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
 						pass
 
-		return "ok", 200
-	
+	return "ok", 200
+
 #JSON template for sending messages back via requests
 #TODO: Add subscription service message tagging
 	#See breaking change notice for Facebook Messenger Platform V2.2 https://developers.facebook.com/docs/messenger-platform/send-messages/
