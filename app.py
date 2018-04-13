@@ -33,13 +33,8 @@ def verify():
 
     return "Hello world", 200
 	
-@app.route('/', methods=['POST'])
-def clean_dumb_FB_crap_because_we_made_bugs():
-	return "ok", 200
-
-	
 #Define the POST route for the webhook
-@app.route('/temp_vest', methods=['POST'])
+@app.route('/', methods=['POST'])
 def webhook():
 
 	#Pull in the json sent by the POST request
@@ -417,6 +412,11 @@ If you have any questions or concerns please contact boyd.christiansen on LINE.'
 
 	return "ok", 200
 
+#Maybe just make this a mode on / route in the future? idk
+@app.route('/clear', methods=['POST'])
+def clean_dumb_FB_crap_because_we_made_bugs():
+	return "ok", 200
+	
 #JSON template for sending messages back via requests
 #TODO: Add subscription service message tagging
 	#See breaking change notice for Facebook Messenger Platform V2.2 https://developers.facebook.com/docs/messenger-platform/send-messages/
