@@ -437,84 +437,273 @@ def send_message(recipient_id, message_text):
 
 def which_area(message_text):
 	only_one = 0
-	area = 'none'
-	danshui = ['淡水','danshui','dan shui']
-	xizhi = ['汐止','xizhi','xi zhi']
-	beitou = ['北投','beitou','bei tou']
-	shulin = ['士林','shulin','shu lin']
-	neihu = ['內湖','neihu','nei hu']
-	songshan = ['松山','songshan','song shan']
-	taipeicentral = ['台北市中心','taipei central','tai pei central']
-	sanchongluzhou = ['三重、蘆洲','sanchong','san chong','lu zhou','luzhou']
-	xinzhuang = ['新莊','xinzhuang','xin zhuang']
-	tuchengshulin = ['土城、樹林','tucheng','tu cheng','shulin','shu lin']
-	banqiao = ['板橋','banqiao','ban qiao']
-	zhongheyonghe = ['中和、永和','zhonghe','zhong he','yonghe','yong he']
-	mujia = ['木柵','mujia','mu jia']
-	xindian = ['新店','xindian','xin dian']
-	ankang = ['安坑','ankang','an kang']
-	sanxia = ['三峽','sanxia','san xia']
-	linkou = ['林口','linkou','lin kou']
-	ntaoyuan = ['北桃園','north taoyuan','north tao yuan','bei taoyuan','bei tao yuan','beitaoyuan']
-	staoyuan = ['南桃園','south taoyuan','south tao yuan','nan taoyuan','nan tao yuan','nantaoyuan']
-	guishan = ['龜山 - 陸光新城','guishan','gui shan']
-	zhongli = ['中壢','zhongli','zhong li']
-	bade = ['八德','bade','ba de']
-	longtan = ['龍潭','longtan','long tan']
-	zhubei = ['竹北','zhubei','zhu bei']
-	zhudong = ['竹東','zhudong','zhu dong']
-	xinzhu = ['新竹','xinzhu','xin zhu']
-	zhunan = ['竹南','zhunan','zhu nan']
-	toufen = ['頭份','toufen','tou fen']
-	miaoli = ['苗栗','miaoli','miao li']
-	yilan = ['宜蘭','yilan','yi lan']
-	hualian = ['花蓮','hualian','hua lian']
-	fenglin = ['鳳林','fenglin','feng lin']
-	taidong = ['台東','taidong','tai dong']
-	yuli = ['玉里','yuli','yu li']
-
-	arealist = [
-	[danshui,'淡水'],
-	[xizhi,'汐止'],
-	[beitou,'北投'],
-	[shulin,'士林'],
-	[neihu,'內湖'],
-	[songshan,'松山'],
-	[taipeicentral,'台北市中心(信義、大安、萬華、大同、中正、中山)'],
-	[sanchongluzhou,'三重、蘆洲'],
-	[xinzhuang,'新莊'],
-	[tuchengshulin,'土城、樹林'],
-	[banqiao,'板橋'],
-	[zhongheyonghe,'中和、永和'],
-	[mujia,'木柵'],
-	[xindian,'新店'],
-	[ankang,'安坑'],
-	[sanxia,'三峽'],
-	[linkou,'林口'],
-	[ntaoyuan,'北桃園'],
-	[staoyuan,'南桃園'],
-	[guishan,'龜山'],
-	[zhongli,'中壢'],
-	[bade,'八德'],
-	[longtan,'龍潭'],
-	[zhubei,'竹北'],
-	[zhudong,'竹東'],
-	[xinzhu,'新竹'],
-	[zhunan,'竹南'],
-	[toufen,'頭份'],
-	[miaoli,'苗栗'],
-	[yilan,'宜蘭'],
-	[hualian,'花蓮'],
-	[fenglin,'鳳林'],
-	[taidong,'台東'],
-	[yuli,'玉里']
-	]
+	#FIGURE OUT WHAT AREA THEY ARE FROM
+	#if "yingge" in message_text  or "ying ge" in message_text or "鶯歌" in message_text:
+		#if only_one == 0:
+			#area = '鶯歌'
+			#only_one = 1
+		#else:
+			#only_one = 2
+	area = "none"
 	
-	for group in arealist:
-		for areaname in group[0]:
-			if areaname in message_text:
-				area = group[1]
-				only_one = 1
-			else:
-				only_one = 2
+	if "tai dong" in message_text  or "taidong" in message_text or "台東" in message_text:
+		if only_one == 0:
+			area = '台東'
+			only_one = 1
+		else:
+			only_one = 2
+			
+	if "zhubei" in message_text  or "zhu bei" in message_text or "竹北" in message_text:
+		if only_one == 0:
+			area = '竹北'
+			only_one = 1
+		else:
+			only_one = 2
+			
+	if "taoyuan" in message_text  or "tao yuan" in message_text or "桃園" in message_text:
+		if only_one == 0:
+			area = '桃園'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "fenglin" in message_text  or "feng lin" in message_text or "鳳林" in message_text:
+		if only_one == 0:
+			area = '鳳林'
+			only_one = 1
+		else:
+			only_one = 2
+			
+	if "xinzhu" in message_text  or "xin zhu" in message_text or "新竹" in message_text:
+		if only_one == 0:
+			area = '新竹'
+			only_one = 1
+		else:
+			only_one = 2
+			
+	if "xindian" in message_text  or "xin dian" in message_text or "新店" in message_text:
+		if only_one == 0:
+			area = '新店'
+			only_one = 1
+		else:
+			only_one = 2
+			
+	if "taoer" in message_text  or "taoer" in message_text or "桃二" in message_text:
+		if only_one == 0:
+			area = '桃二'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "shilin" in message_text  or "shi lin" in message_text or "士林" in message_text:
+		if only_one == 0:
+			area = '士林'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "miaoli" in message_text  or "miao li" in message_text or "苗栗" in message_text:
+		if only_one == 0:
+			area = '苗栗'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "shuanghe" in message_text  or "shuang he" in message_text or "看板" in message_text:
+		if only_one == 0:
+			area = '看板'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "ankang" in message_text  or "an kang" in message_text or "安坑" in message_text:
+		if only_one == 0:
+			area = '安坑'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "danshui" in message_text  or "dan shui" in message_text or "淡水" in message_text:
+		if only_one == 0:
+			area = '淡水'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "muzha" in message_text  or "mu zha" in message_text or "木柵" in message_text:
+		if only_one == 0:
+			area = '木柵'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "yilan" in message_text  or "yi lan" in message_text or "宜蘭" in message_text:
+		if only_one == 0:
+			area = '宜蘭'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "central taipei" in message_text  or "central tai pei" in message_text or "central-taipei" in message_text or "台北市中心" in message_text:
+		if only_one == 0:
+			area = '台北市中心(信義、大安、萬華、大同、中正、中山)'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "toufen" in message_text  or "tou fen" in message_text or "頭份" in message_text:
+		if only_one == 0:
+			area = '頭份'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "linkou" in message_text  or "lin kou" in message_text or "林口" in message_text:
+		if only_one == 0:
+			area = '林口'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "xinzhuang" in message_text  or "xin zhuang" in message_text or "新莊" in message_text:
+		if only_one == 0:
+			area = '新莊'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "beitou" in message_text  or "bei tou" in message_text or "北投" in message_text:
+		if only_one == 0:
+			area = '北投'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "longtan" in message_text  or "long tan" in message_text or "龍潭" in message_text:
+		if only_one == 0:
+			area = '龍潭'
+			only_one = 1
+		else:
+			only_one = 2
+			
+	if "songshan" in message_text  or "song shan" in message_text or "松山" in message_text:
+		if only_one == 0:
+			area = '松山'
+			only_one = 1
+		else:
+			only_one = 2
+			
+	if "sanxia" in message_text  or "san xia" in message_text or "三峽" in message_text:
+		if only_one == 0:
+			area = '三峽'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "neihu" in message_text  or "nei hu" in message_text or "內湖" in message_text:
+		if only_one == 0:
+			area = '內湖'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "bade" in message_text  or "ba de" in message_text or "八德" in message_text:
+		if only_one == 0:
+			area = '八德'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "tu cheng" in message_text  or "tucheng" in message_text or "shulin" in message_text or "shu lin" in message_text or "土城" in message_text or "樹林" in message_text:
+		if only_one == 0:
+			area = '土城、樹林'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "zhu dong" in message_text  or "zhudong" in message_text or "竹東" in message_text:
+		if only_one == 0:
+			area = '竹東'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "xinpu" in message_text  or "xin pu" in message_text or "板橋" in message_text:
+		if only_one == 0:
+			area = '板橋'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "luguang" in message_text  or "lu guang" in message_text or "龜山" in message_text:
+		if only_one == 0:
+			area = '龜山'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "hualian" in message_text  or "hua lian" in message_text or "花蓮" in message_text:
+		if only_one == 0:
+			area = '花蓮'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "xizhi" in message_text  or "xi zhi" in message_text or "汐止" in message_text:
+		if only_one == 0:
+			area = '汐止'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "zhu nan" in message_text  or "zhunan" in message_text or "竹南" in message_text:
+		if only_one == 0:
+			area = '竹南'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "zhongli" in message_text  or "zhong li" in message_text or "中壢" in message_text:
+		if only_one == 0:
+			area = '中壢'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "san chong" in message_text  or "sanchong" in message_text or "luzhou" in message_text or "lu zhou" in message_text or "三重" in message_text or "蘆洲" in message_text:
+		if only_one == 0:
+			area = '三重、蘆洲'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "jilong" in message_text  or "ji long" in message_text or "基隆" in message_text:
+		if only_one == 0:
+			area = '基隆'
+			only_one = 1
+		else:
+			only_one = 2
+	
+	if "yuli" in message_text  or "yu li" in message_text or "玉里" in message_text:
+		if only_one == 0:
+			area = '玉里'
+			only_one = 1
+		else:
+			only_one = 2
+			
+	if "zhonghe" in message_text or "zhong he" in message_text or "中和" in message_text or "yonghe" in message_text or "yong he" in message_text or "永和" in message_text:
+		if only_one == 0:
+			area = '中和、永和'
+			only_one = 1
+		else:
+			only_one = 2
+	#TAIPEI----/\
+	#TAIZHONG--\/
+	#Template for adding future areas
+	#if "" in message_text  or "" in message_text or "" in message_text:
+		#if only_one == 0:
+			#area = ''
+			#only_one = 1
+		#else:
+			#only_one = 2
 	return (only_one, area)
