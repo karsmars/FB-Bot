@@ -213,7 +213,7 @@ def webhook():
 								areasheet = drive.CreateFile({'title':area + ' English Class Referrals',
 															  "mimeType": "text/csv"})
 								areasheet.SetContentFile('areasheet.csv')
-								areasheet.Upload(param={'convert': True})
+								areasheet.Upload()
 								permission = areasheet.InsertPermission({'type': 'anyone',
 																		 'value': 'anyone',
 																		 'role': 'writer'})
