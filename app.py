@@ -308,7 +308,7 @@ If you have any questions or concerns please contact boyd.christiansen on LINE.'
 三重、蘆洲/Sanchong,Luzhou
 新莊/Xinzhuang
 土城、樹林/Tucheng,Shulin
-板橋/Kanban
+板橋/Banqiao
 中和、永和/Zhonghe,Yonghe
 木柵/Mujia
 新店/Xindian
