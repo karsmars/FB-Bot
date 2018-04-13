@@ -166,6 +166,7 @@ def webhook():
 							
 						if 'sheet' in message_text:
 							area = "none"
+							has_written = False
 							only_one, area = which_area(message_text)
 							if only_one == 0:
 								send_message(sender_id, 'No valid area name detected, please type "Area List" for a list of areas you can unsubscribe from.')
@@ -203,9 +204,12 @@ def webhook():
 								for referral in rdb:
 									if referral[4] == area:
 										arearefs.append(referral)
+										has_written = True
 								#####################Create a new sheet for that area, populate it using the list arearefs.
 								nareasheet = open('areasheet.csv', "w", newline='', encoding='utf-8')
 								writenewrefs = csv.writer(nareasheet)
+								if has_written == False:
+									writenewrefs.writerow('No referrals cached for this area yet.')
 								for locref in arearefs:
 									writenewrefs.writerow(locref)
 								referrals.close()
