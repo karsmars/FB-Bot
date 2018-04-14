@@ -422,8 +422,9 @@ def clean_dumb_FB_crap_because_we_made_bugs():
 #JSON template for sending messages back via requests
 #TODO: Add subscription service message tagging
 	#See breaking change notice for Facebook Messenger Platform V2.2 https://developers.facebook.com/docs/messenger-platform/send-messages/
+	#https://developers.facebook.com/docs/messenger-platform/send-messages/message-tags
+	#https://developers.facebook.com/docs/messenger-platform/send-messages#messaging_types
 def send_message(recipient_id, message_text):
-	mess_type = "MESSAGE_TAG"
 	if recipient_id == "unsubscribed":
 		pass
 	else:
@@ -434,7 +435,7 @@ def send_message(recipient_id, message_text):
 			"Content-Type": "application/json"
 		}
 		data = json.dumps({
-			"messaging_type": mess_type,
+			"messaging_type": "RESPONSE",
 			"recipient": {
 				"id": recipient_id
 			},

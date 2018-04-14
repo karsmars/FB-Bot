@@ -49,14 +49,17 @@ def send_message(recipient_id, message_text):
 			"Content-Type": "application/json"
 		}
 		data = json.dumps({
+			"messaging_type": "MESSAGE_TAG",
 			"recipient": {
 				"id": recipient_id
 			},
 			"message": {
 				"text": message_text
-			}
+			},
+			"tag": "PAIRING_UPDATE"
 		})
 		r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+
 def getref(referralnum):
 	#uses the provided integer to call a referral from the list referrallist by its indice
 	return referrallist[referralnum]
