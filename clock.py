@@ -173,7 +173,11 @@ while escaped_start1a < readnuma:
 		#make this drop out of loop if there at end of list  so it doesn't parse off the end
 		area_cache = str(read_in_sheet['area'][area_ct_num])
 		if area_cache == area:
-			sender_id = int(read_in_sheet['sender_id'][area_ct_num])
+			#removed the int encasing the intake int(read_in_sheet['sender_id'][area_ct_num])
+			sender_id = read_in_sheet['sender_id'][area_ct_num]
+			if sender_id[0] = 'a':
+				#drops the string form letter off of the uid
+				sender_id = sender_id[1:]
 			has_id = 1
 		elif ww_num == area_ct_num and has_id == 0:
 			#no id for a ref location

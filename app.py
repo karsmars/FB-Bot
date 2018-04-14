@@ -256,11 +256,13 @@ def webhook():
 								eulfile = open('DEUL.csv', 'r', encoding='utf-8')
 								csvreadthispls = csv.reader(eulfile)
 								eullist = []
+								sender_id = 'a' + sender_id
 								for eul in csvreadthispls:
 									if eul[0] == area and eul[1] == sender_id:
 										eul[1] = 'unsubscribed'
 									eullist.append(eul)
 								eulfile.close()
+								sender_id = sender_id[1:]
 								eulfile = open('DEUL.csv', 'w', encoding='utf-8')
 								roworg = 0
 								for weul in eullist:
@@ -387,8 +389,10 @@ If you have any questions or concerns please contact boyd.christiansen on LINE.'
 									checkifreg.close()
 									if write == True:
 										addneweul = open('DEUL.csv', 'a', encoding='utf-8')
+										sender_id = 'a' + sender_id
 										addneweul.write('''
 %s,%s''' % (area, sender_id))
+										sender_id = sender_id[1:]
 										addneweul.close()
 										send_message(sender_id, 'Thank you. You have been registered as the English Unit Leader for %s. Have a good transfer and baptize thousands.' %  (area))
 									keysheet.SetContentFile('DEUL.csv')
