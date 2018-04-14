@@ -423,7 +423,7 @@ def clean_dumb_FB_crap_because_we_made_bugs():
 #TODO: Add subscription service message tagging
 	#See breaking change notice for Facebook Messenger Platform V2.2 https://developers.facebook.com/docs/messenger-platform/send-messages/
 def send_message(recipient_id, message_text):
-	mess_type = "RESPONSE"
+	mess_type = "MESSAGE_TAG"
 	if recipient_id == "unsubscribed":
 		pass
 	else:
@@ -440,7 +440,8 @@ def send_message(recipient_id, message_text):
 			},
 			"message": {
 				"text": message_text
-			}
+			},
+			"tag": "PAIRING_UPDATE"
 		})
 		r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
 
