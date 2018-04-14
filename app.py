@@ -4,6 +4,8 @@
 
 #TODO: Add a class level fill field to the register command.
 
+#TODO: Fix area name contained in another area name bug.
+
 #Library imports.
 import os
 import sys
@@ -30,9 +32,9 @@ def verify():
         if not request.args.get("hub.verify_token") == "elder_christiansen_was_here":#os.environ["VERIFY_TOKEN"]:
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
-
+	#What the actual heck am I doing here? \/
     return "Hello world", 200
-	
+
 #Define the POST route for the webhook
 @app.route('/', methods=['POST'])
 def webhook():
