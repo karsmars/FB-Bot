@@ -305,7 +305,7 @@ If you have any questions or concerns please contact boyd.christiansen on LINE.'
 淡水/Danshui
 汐止/Xizhi
 北投/Beitou
-士林/Shulin
+士林/Shilin
 內湖/Neihu
 松山/Songshan
 台北市中心(信義、大安、萬華、大同、中正、中山)/Central Taipei(Xinyi, Daan, Wanhua, Datong, Zhongzheng, Zhongshan)
@@ -451,7 +451,7 @@ def which_area(message_text):
 	danshui = ['淡水','danshui','dan shui']
 	xizhi = ['汐止','xizhi','xi zhi']
 	beitou = ['北投','beitou','bei tou']
-	shulin = ['士林','shulin','shu lin']
+	shulin = ['士林','shilin','shi lin']
 	neihu = ['內湖','neihu','nei hu']
 	songshan = ['松山','songshan','song shan']
 	taipeicentral = ['台北市中心','taipei central','tai pei central']
