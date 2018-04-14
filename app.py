@@ -441,8 +441,7 @@ def send_message(recipient_id, message_text):
 			},
 			"message": {
 				"text": message_text
-			},
-			"tag": "PAIRING_UPDATE"
+			}
 		})
 		r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
 
