@@ -175,7 +175,7 @@ while escaped_start1a < readnuma:
 		if area_cache == area:
 			#removed the int encasing the intake int(read_in_sheet['sender_id'][area_ct_num])
 			sender_id = read_in_sheet['sender_id'][area_ct_num]
-			if sender_id[0] = 'a':
+			if sender_id[0] == 'a':
 				#drops the string form letter off of the uid
 				sender_id = sender_id[1:]
 			has_id = 1
