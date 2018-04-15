@@ -381,7 +381,10 @@ If you have any questions or concerns please contact boyd.christiansen on LINE.'
 									pass_flag = False
 									for reul in readit:
 										if reul[0] == area and reul[1] != "unsubscribed":
-											send_message(sender_id, "Sorry, this area has already been subscribed to.")
+											if reul[1] == sender_id:
+												send_message(sender_id, "It looks like you've already subscribed to this area.")
+											else:
+												send_message(sender_id, "Sorry, this area has already been subscribed to.")
 											write = False
 											pass_flag = True
 										elif pass_flag == False:
