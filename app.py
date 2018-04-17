@@ -444,7 +444,7 @@ def send_message(recipient_id, message_text):
 			"Content-Type": "application/json"
 		}
 		data = json.dumps({
-			"messaging_type": "RESPONSE",
+			#"messaging_type": "RESPONSE",
 			"recipient": {
 				"id": recipient_id
 			},
